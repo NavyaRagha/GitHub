@@ -23,7 +23,7 @@
 
 </head>
 <body> 
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" action="login">
         <asp:ScriptManager ID="sm1" runat="server" EnableCdn="true">
             <Scripts>
                 <asp:ScriptReference Name="jquery" />
@@ -79,22 +79,24 @@
                     <asp:Button ID="btnGoogle" runat="server" Text="Log in using Gmail" class="btn btn-gmail sharp" OnClick="Login_Click" />
                 </div>
             </div>
-            <%--<br/>--%>
+           
             <div>
                 <div class="form-group">
                     <div class="col-md-6"></div>
                     <asp:Label runat="server" ID="lblUserName" CssClass="col-md-2 control-label" Text="Username"></asp:Label>
                     <div class="col-md-3">
-                        <asp:TextBox runat="server" CssClass="form-control" ID="txtUserName"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvUsername" CssClass="text-danger " runat="server" ErrorMessage="The UserName is Required!" ControlToValidate="txtUserName"></asp:RequiredFieldValidator>
+                        <asp:TextBox runat="server" CssClass="form-control" ID="txtUserName" ValidationGroup="login"></asp:TextBox>
+                        <asp:LinkButton ID="lnk" runat="server" PostBackUrl="forgot/user">Forgot UserName!</asp:LinkButton><br />
+                        <asp:RequiredFieldValidator ID="rfvUsername" CssClass="text-danger" ValidationGroup="login" runat="server" ErrorMessage="The UserName is Required!" ControlToValidate="txtUserName"></asp:RequiredFieldValidator>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-6"></div>
                     <asp:Label runat="server" ID="Label2" CssClass="col-md-2 control-label" Text="Password"></asp:Label>
                     <div class="col-md-3">
-                        <asp:TextBox runat="server" CssClass="form-control" ID="txtPassword" TextMode="Password"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvPassword" CssClass="text-danger " runat="server" ErrorMessage="The Password is Required!" ControlToValidate="txtPassword"></asp:RequiredFieldValidator>
+                        <asp:TextBox runat="server" CssClass="form-control" ValidationGroup="login" ID="txtPassword" TextMode="Password"></asp:TextBox>
+                        <asp:LinkButton ID="lbForgotPass" runat="server" PostBackUrl="forgot/password">Forgot Password!</asp:LinkButton><br />
+                        <asp:RequiredFieldValidator ID="rfvPassword" ValidationGroup="login" CssClass="text-danger " runat="server" ErrorMessage="The Password is Required!" ControlToValidate="txtPassword"></asp:RequiredFieldValidator>
                     </div>
                 </div>
                 <div class="form-group">
@@ -107,9 +109,10 @@
                 <div class="form-group">
                     <div class="col-md-8"></div>
                     <div class="col-md-4">
-                        <asp:LinkButton ID="lbForgotPass" runat="server" PostBackUrl="~/ForgotPassword.aspx">Forgot Password!</asp:LinkButton><br />
+                        <%--<asp:LinkButton ID="lbForgotPass" runat="server" PostBackUrl="~/ForgotPassword.aspx">Forgot Password!</asp:LinkButton><br />--%>
                         <asp:Label runat="server" ID="lblreg" CssClass="control-label" Text="Don't you have account?"></asp:Label>
                         <asp:LinkButton ID="lnlRegister" runat="server" PostBackUrl="SignUp.aspx">Register Here! Click Me</asp:LinkButton>
+                        <a href="join">Join Us</a></li>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -118,7 +121,7 @@
                 <div class="form-group">
                     <div class="col-md-8"></div>
                     <div class="col-md-3">
-                        <asp:Button ID="btnLogin" runat="server" Text="Login" class="btn btn-success raised round" OnClick="Login_Click" />
+                        <asp:Button ID="btnLogin" ValidationGroup="login" runat="server" Text="Login" class="btn btn-success raised round" OnClick="Login_Click" />
                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-danger raised round" OnClick="Login_Click" /><br />
                     </div>
                 </div>
@@ -129,9 +132,7 @@
                     </div>
                 </div>
             </div>
-            <%--</td>--%>
-            <%--  </tr>
-     </table>--%>
+           
         </div>
 
         <!--Sign In End -->

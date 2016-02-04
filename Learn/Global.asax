@@ -9,11 +9,14 @@
     void RegisterRoutes(RouteCollection routes)
     {
         routes.EnableFriendlyUrls();
+
         routes.MapPageRoute("home", "home", "~/Default.aspx");
         routes.MapPageRoute("Signin", "Signin", "~/SignIn.aspx");
         routes.MapPageRoute("Login", "login", "~/SignIn.aspx");
         routes.MapPageRoute("register", "register", "~/SignUp.aspx");
         routes.MapPageRoute("join", "join", "~/SignUp.aspx");
+        routes.MapPageRoute("forgot/password", "forgot/password", "~/ForgotPassword.aspx");
+        routes.MapPageRoute("forgot/user", "user", "~/ForgotPassword.aspx");
     }
 
     void Application_Start(object sender, EventArgs e)
