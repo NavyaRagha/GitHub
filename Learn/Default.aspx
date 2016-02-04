@@ -22,7 +22,7 @@
     <![endif]-->
 </head>
 <body>
-     <form id="form1" runat="server">
+     <form id="form1" runat="server" action="home">
     <div>
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
@@ -33,7 +33,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="Default.aspx" > <span> <img alt="Logo" src="Images/Learn.png" height="30" /></span>TecyCybo</a>
+                    <a class="navbar-brand" href="home" > <span> <img alt="Logo" src="Images/Learn.png" height="30" /></span>TecyCybo</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -56,8 +56,8 @@
                                 <li><a href="#">Learn2-3</a></li>
                             </ul>
                         </li>
-                        <li><a href="SignUp.aspx">Sign Up</a></li>
-                        <li><a href="SignIn.aspx">Sign In</a></li>
+                        <li><a href="join">Join Us</a></li>
+                        <li><a href="login">Log In</a></li>
                     </ul>
                 </div>
             </div>
@@ -77,8 +77,8 @@
                         <div class="carousel-caption">
                             <h3>Iphone 6</h3>
                             <p>The New Iphone 6 Plus </p>
-                            <p><a class="btn btn-primary outline" href="~/SignUp.aspx" role="button">Join Us Today</a>
-                               <a class="btn btn-success outline" href="~/SignIn.aspx" role="button">LogIn</a></p>
+                            <p><a class="btn btn-primary outline" href="SignUp.aspx" role="button">Join Us</a>
+                               <a class="btn btn-success outline" href="SignIn.aspx" role="button">Log In</a></p>
                         </div>
                     </div>
                     <div class="item">

@@ -2,29 +2,41 @@
 <%@ Import Namespace="System.Net" %>
 <%@ Import Namespace="System.Web.Configuration" %>
 <%@ Import Namespace="System.Web.Routing" %>
-
-<%@ Import Namespace="System.Web.Security" %>
+<%@ Import Namespace="Microsoft.AspNet.FriendlyUrls" %>
 
 <script runat="server">
 
-     void RegisterRoutes(RouteCollection routes)
-     {
-         routes.MapPageRoute("Home", "Home", "~/Default.aspx");
-     }
+    void RegisterRoutes(RouteCollection routes)
+    {
+        routes.EnableFriendlyUrls();
+        routes.MapPageRoute("home", "home", "~/Default.aspx");
+        routes.MapPageRoute("Signin", "Signin", "~/SignIn.aspx");
+        routes.MapPageRoute("Login", "login", "~/SignIn.aspx");
+        routes.MapPageRoute("register", "register", "~/SignUp.aspx");
+        routes.MapPageRoute("join", "join", "~/SignUp.aspx");
+    }
 
     void Application_Start(object sender, EventArgs e)
     {
         // Code that runs on application startup
         RegisterRoutes(RouteTable.Routes);
 
-        ScriptManager.ScriptResourceMapping.AddDefinition("jquery",new ScriptResourceDefinition
-        {
-            Path="~/scrips/jquery-1.4.1.min.js",
-            DebugPath="~/scripts/jquery-1.4.1.js",
-            CdnPath="http://ajax.microsoft.com/ajax/jQuery/jquery-1.4.1.min.js",
-            CdnDebugPath = "http://ajax.microsoft.com/ajax/jQuery/jquery-1.4.1.js"
-        });
+        //ScriptManager.ScriptResourceMapping.AddDefinition("jquery",new ScriptResourceDefinition
+        //{
+        //    Path="~/scrips/jquery-1.4.1.min.js",
+        //    DebugPath="~/scripts/jquery-1.4.1.js",
+        //    CdnPath="http://ajax.microsoft.com/ajax/jQuery/jquery-1.4.1.min.js",
+        //    CdnDebugPath = "http://ajax.microsoft.com/ajax/jQuery/jquery-1.4.1.js"
+        //});
 
+
+
+        ScriptResourceDefinition myScriptResDef = new ScriptResourceDefinition();
+        myScriptResDef.Path = "~/scrips/jquery-1.4.1.min.js";
+        myScriptResDef.DebugPath = "~/scripts/jquery-1.4.1.js";
+        myScriptResDef.CdnPath = "http://ajax.microsoft.com/ajax/jQuery/jquery-1.4.1.min.js";
+        myScriptResDef.CdnDebugPath = "http://ajax.microsoft.com/ajax/jQuery/jquery-1.4.1.js";
+        ScriptManager.ScriptResourceMapping.AddDefinition("jquery", null, myScriptResDef);
 
     }
 

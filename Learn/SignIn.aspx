@@ -20,9 +20,15 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
 </head>
-<body>
+<body> 
     <form id="form1" runat="server">
+        <asp:ScriptManager ID="sm1" runat="server" EnableCdn="true">
+            <Scripts>
+                <asp:ScriptReference Name="jquery" />
+            </Scripts>
+        </asp:ScriptManager>
         <div>
             <div class="navbar navbar-default navbar-fixed-top" role="navigation">
                 <div class="container">
@@ -33,12 +39,12 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="Default.aspx"><span>
+                        <a class="navbar-brand" href="home"><span>
                             <img alt="Logo" src="Images/Learn.png" height="30" /></span>TecyCybo</a>
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="Default.aspx">Home</a></li>
+                            <li><a href="home">Home</a></li>
                             <li><a href="#">About</a></li>
                             <li><a href="#">Contact</a></li>
                             <li class="dropdown">
@@ -57,57 +63,65 @@
                                     <li><a href="#">Learn2-3</a></li>
                                 </ul>
                             </li>
-                            <li class="active"><a href="SignIn.aspx">Sign In</a></li>
+                            <li class="active"><a href="login">Sign In</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+
         <!--Sign In Start -->
-        <div class="container">
+        <div class="container" style="border: 1px solid black;">
             <div class="form-horizontal">
-                <h4>Login</h4>
-                <hr />
+                <h4 style="background-color: #66CCFF; color: #FFFFFF; font-size: larger; height: 40px">&nbsp;&nbsp; &nbsp; &nbsp;Login</h4>
+                <div class="col-md-12">
+                    <asp:Button ID="btnFacebook" runat="server" Text="Log in using Facebook" class="btn btn-facebook sharp" OnClick="Login_Click" /><br />
+                    <asp:Button ID="btnGoogle" runat="server" Text="Log in using Gmail" class="btn btn-gmail sharp" OnClick="Login_Click" />
+                </div>
+            </div>
+            <%--<br/>--%>
+            <div>
                 <div class="form-group">
+                    <div class="col-md-6"></div>
                     <asp:Label runat="server" ID="lblUserName" CssClass="col-md-2 control-label" Text="Username"></asp:Label>
                     <div class="col-md-3">
                         <asp:TextBox runat="server" CssClass="form-control" ID="txtUserName"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvUsername" CssClass="text-danger " runat="server" ErrorMessage="The UserName is Required!" ControlToValidate="txtUserName"></asp:RequiredFieldValidator>
                     </div>
                 </div>
-
                 <div class="form-group">
+                    <div class="col-md-6"></div>
                     <asp:Label runat="server" ID="Label2" CssClass="col-md-2 control-label" Text="Password"></asp:Label>
                     <div class="col-md-3">
                         <asp:TextBox runat="server" CssClass="form-control" ID="txtPassword" TextMode="Password"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvPassword" CssClass="text-danger " runat="server" ErrorMessage="The Password is Required!" ControlToValidate="txtPassword"></asp:RequiredFieldValidator>
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-6">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4">
                         <asp:CheckBox ID="chkRemember" runat="server" />
                         <asp:Label runat="server" ID="Label3" CssClass="control-label" Text="Remember Me?"></asp:Label>
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-6">
-                        <asp:Button ID="btnLogin" runat="server" Text="Login" class="btn btn-primary raised round"  OnClick="Login_Click" />
-
-                        <asp:LinkButton ID="LinkButton1" runat="server" PostBackUrl="~/SignUp.aspx">Sign Up</asp:LinkButton>
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4">
+                        <asp:LinkButton ID="lbForgotPass" runat="server" PostBackUrl="~/ForgotPassword.aspx">Forgot Password!</asp:LinkButton><br />
+                        <asp:Label runat="server" ID="lblreg" CssClass="control-label" Text="Don't you have account?"></asp:Label>
+                        <asp:LinkButton ID="lnlRegister" runat="server" PostBackUrl="SignUp.aspx">Register Here! Click Me</asp:LinkButton>
                     </div>
                 </div>
-                
+                <div class="col-md-12">
+                    <hr style="text-decoration: line-through; border: 1px solid lightgray;" />
+                </div>
                 <div class="form-group">
-                     <div class="col-md-2"></div>
-                    <div class="col-md-6">
-                        <asp:LinkButton ID="lbForgotPass" runat="server" PostBackUrl="~/ForgotPassword.aspx">Forgot Password!</asp:LinkButton>
+                    <div class="col-md-8"></div>
+                    <div class="col-md-3">
+                        <asp:Button ID="btnLogin" runat="server" Text="Login" class="btn btn-success raised round" OnClick="Login_Click" />
+                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-danger raised round" OnClick="Login_Click" /><br />
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-2"></div>
                     <div class="col-md-6">
@@ -115,8 +129,11 @@
                     </div>
                 </div>
             </div>
+            <%--</td>--%>
+            <%--  </tr>
+     </table>--%>
         </div>
-        							
+
         <!--Sign In End -->
     </form>
     <!--Footer -->

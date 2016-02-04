@@ -61,6 +61,30 @@
 	background: #008c52;
 	box-shadow: none;
 }
+
+.btn-facebook {
+	background: #3b5998;
+	color: #ffffff;
+}
+.btn-facebook:hover, .btn-facebook:focus, .btn-facebook:active, .btn-facebook.active, .open > .dropdown-toggle.btn-facebook {
+	background:  #8b9dc3;
+}
+.btn-facebook:active, .btn-facebook.active {
+	background: #dfe3ee;
+	box-shadow: none;
+}
+.btn-gmail {
+	background: #c71610;
+	color: #ffffff;
+}
+.btn-gmail:hover, .btn-gmail:focus, .btn-gmail:active, .btn-gmail.active, .open > .dropdown-toggle.btn-gmail {
+	background: #f2a60c;
+}
+.btn-gmail:active, .btn-gmail.active {
+	background:#eba259;
+	box-shadow: none;
+}
+
 .btn-info {
 	background: #31cde8;
 	color: #ffffff;
@@ -84,7 +108,8 @@
 	box-shadow: none;
 }
 .btn-danger {
-	background: #f25454;
+	background: #c71610;
+;
 	color: #ffffff;
 }
 .btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open > .dropdown-toggle.btn-danger {
@@ -314,6 +339,12 @@
 	background: linear-gradient(to bottom,  #bf5656 50%,#bf4343 50%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bf5656', endColorstr='#bf4343',GradientType=0 ); /* IE6-9 */
 }
+
+
+
+
+
+
 
 /******************************************************
 	ROUNDED BUTTONS

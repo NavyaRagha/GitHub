@@ -15,13 +15,13 @@ public partial class UserHome : System.Web.UI.Page
         }
         else
         {
-            Response.Redirect("~/SignIn.aspx");
+            Response.Redirect("login");
         }
     }
 
     protected void btnSignOut_Click(object sender,EventArgs e)
     {
         Session["USERNAME"] = null;
-        Response.Redirect("~/Default.aspx");
+        Response.Redirect("home");
     }
 }

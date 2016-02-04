@@ -3,25 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Learn", "D:\CedarGlenApplications\Responsive\Learn\", "{4A1E7050-3691-430F-883F-40FDD1912398}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Learn", "D:\CedarGlenApplications\GitHub\Learn\", "{4A1E7050-3691-430F-883F-40FDD1912398}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_21929"
-		Debug.AspNetCompiler.PhysicalPath = "..\Responsive\Learn\"
+		Debug.AspNetCompiler.PhysicalPath = "Learn\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_21929\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/localhost_21929"
-		Release.AspNetCompiler.PhysicalPath = "..\Responsive\Learn\"
+		Release.AspNetCompiler.PhysicalPath = "Learn\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_21929\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "21929"
-		SlnRelativePath = "..\Responsive\Learn\"
+		SlnRelativePath = "Learn\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject

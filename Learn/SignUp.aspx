@@ -34,12 +34,12 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="Default.aspx"><span>
+                        <a class="navbar-brand" href="home"><span>
                             <img alt="Logo" src="Images/Learn.png" height="30" /></span>TecyCybo</a>
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="Default.aspx">Home</a></li>
+                            <li><a href="home">Home</a></li>
                             <li><a href="#">About</a></li>
                             <li><a href="#">Contact</a></li>
                             <li class="dropdown">
@@ -58,8 +58,8 @@
                                     <li><a href="#">Learn2-3</a></li>
                                 </ul>
                             </li>
-                            <li class="active"><a href="SignUp.aspx">Sign Up</a></li>
-                            <li ><a href="SignIn.aspx">Sign In</a></li>
+                            <li class="active"><a href="join">Sign Up</a></li>
+                            <li ><a href="login">Sign In</a></li>
                         </ul>
 
                     </div>
