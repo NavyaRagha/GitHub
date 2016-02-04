@@ -16,7 +16,7 @@
         routes.MapPageRoute("register", "register", "~/SignUp.aspx");
         routes.MapPageRoute("join", "join", "~/SignUp.aspx");
         routes.MapPageRoute("forgot/password", "forgot/password", "~/ForgotPassword.aspx");
-        routes.MapPageRoute("forgot/user", "user", "~/ForgotPassword.aspx");
+        routes.MapPageRoute("forgot/user", "forgot/user", "~/ForgotPassword.aspx");
     }
 
     void Application_Start(object sender, EventArgs e)

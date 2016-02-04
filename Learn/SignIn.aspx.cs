@@ -27,6 +27,11 @@ public partial class SignIn : System.Web.UI.Page
 
     protected void Login_Click(object sender, EventArgs e)
     {
+      
+    }
+
+    protected void Login_Click1(object sender, EventArgs e)
+    {
         string cs = ConfigurationManager.ConnectionStrings["LearnData"].ConnectionString;
         using (SqlConnection con = new SqlConnection(cs))
         {
@@ -67,7 +72,7 @@ public partial class SignIn : System.Web.UI.Page
                     Session["USERNAME"] = txtUserName.Text;
                     FormsAuthentication.RedirectFromLoginPage(txtUserName.Text, true); ;
                     Response.Redirect("~/UserHome.aspx");
-                    
+
 
                 }
 
@@ -76,6 +81,6 @@ public partial class SignIn : System.Web.UI.Page
             {
                 lblError.Text = "Invalid User or Password! ";
             }
-        } 
+        }
     }
 }

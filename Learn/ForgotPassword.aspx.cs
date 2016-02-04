@@ -12,13 +12,15 @@ using System.Net.Mail;
 using System.Net;
 public partial class ForgotPassword : System.Web.UI.Page
 {
+    public string path = "";
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        
     }
 
     protected void btnPassRec_Click(object sender, EventArgs e)
     {
+
         string cs = ConfigurationManager.ConnectionStrings["LearnData"].ConnectionString;
         using (SqlConnection con = new SqlConnection(cs))
         {

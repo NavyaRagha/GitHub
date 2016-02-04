@@ -17,7 +17,6 @@ public partial class RecoverPassword : System.Web.UI.Page
     private int Uid;
     protected void Page_Load(object sender, EventArgs e)
     {
-
         using (SqlConnection con = new SqlConnection(cs))
         {
             GUIDvalue = Request.QueryString["Uid"];
@@ -29,8 +28,8 @@ public partial class RecoverPassword : System.Web.UI.Page
                 sda.Fill(dt);
                 if (dt.Rows.Count != 0)
                 {
-
                     Uid = Convert.ToInt32(dt.Rows[0][1]);
+                    lblUsername.Text = Convert.ToString(dt.Rows[0][0]);
                 }
                 else
                 {

@@ -69,6 +69,12 @@
 
                 <h4>&nbsp;</h4>
                 <div class="form-group">
+                    <asp:Label runat="server" ID="Label1" CssClass="col-md-2 control-label" Text="UserName" Visible="False" />
+                    <div class="col-md-3">
+                        <asp:Label runat="server" ID="lblUsername" CssClass="col-md-2 control-label" Text="UserName" Visible="False" />
+                    </div>
+                </div>
+                <div class="form-group">
                     <asp:Label runat="server" ID="lblPassword" CssClass="col-md-2 control-label" Text="New Password" Visible="False" />
                     <div class="col-md-3">
                         <asp:TextBox runat="server" ID="txtNewPass" TextMode="Password" CssClass="form-control" Visible="False" />
@@ -88,6 +94,7 @@
                     <div class="col-md-2"></div>
                     <div class="col-md-6">
                         <asp:Button runat="server" ID="btnResetPassword" CssClass="btn btn-default" Text="Reset" Visible="False" OnClick="btnResetPassword_Click"  />
+                        <asp:LinkButton ID="btnCancel" runat="server" Text="Cancel" class="btn btn-danger raised round" PostBackUrl="login" /><br />
                     </div>
                 </div>
             </div>
