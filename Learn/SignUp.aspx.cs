@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Data;
 using System.Drawing;
 
 public partial class SignUp : System.Web.UI.Page
@@ -25,17 +26,33 @@ public partial class SignUp : System.Web.UI.Page
                 string cs = ConfigurationManager.ConnectionStrings["LearnData"].ConnectionString;
                     using (SqlConnection con = new SqlConnection(cs))
                     {
-                        SqlCommand cmd =
-                            new SqlCommand(
-                                " Insert into Users values ('" + txtusername.Text + "','" + txtPassword.Text + "', '" +
-                                txtEmail.Text + "','" + txtName.Text + "' , '" + "U" + "')", con);
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-                    lblMsg.ForeColor=Color.Green;
-                    lblMsg.Text = "Registration Successfull";
-                    Response.Redirect("~/SignIn.aspx");
-                    con.Close();
+
+                        SqlCommand cmduser =
+                            new SqlCommand("Select Username from Users where username ='" + txtusername.Text + "'", con);
+                    SqlDataAdapter sda = new SqlDataAdapter(cmduser);
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                        if (dt.Rows.Count == 0)
+                        {
+
+                            SqlCommand cmd =
+                                new SqlCommand(
+                                    " Insert into Users values ('" + txtusername.Text + "','" + txtPassword.Text +
+                                    "', '" +
+                                    txtEmail.Text + "','" + txtName.Text + "' , '" + "U" + "')", con);
+                            con.Open();
+                            cmd.ExecuteNonQuery();
+                            lblMsg.ForeColor = Color.Green;
+                            lblMsg.Text = "Registration Successfull";
+                            Response.Redirect("~/SignIn.aspx");
+                            con.Close();
+                        }
+                        else
+                        {
+                        lblMsg.ForeColor = Color.Red;
+                        lblMsg.Text = "Username Already Exists In Our Database";
                     }
+                }
                 }
             else
             {

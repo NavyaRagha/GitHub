@@ -33,7 +33,11 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="home">Home</a></li>
+                            <li class="active"><a href="join">Register</a></li>
+                        </ul>
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav navbar-right">  
+                                <li><a href="home">Home</a></li>
                             <li><a href="#">About</a></li>
                             <li><a href="#">Contact</a></li>
                             <li class="dropdown">
@@ -51,9 +55,8 @@
                                     <li><a href="#">Learn2-2</a></li>
                                     <li><a href="#">Learn2-3</a></li>
                                 </ul>
-                            </li>
-                            <li class="active"><a href="join">Sign In</a></li>
-                        </ul>
+                            </li></ul>
+                        </div>
                     </div>
                 </div>
             </div>

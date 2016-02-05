@@ -1,7 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SignIn.aspx.cs" Inherits="SignIn" %>
-
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="utf-8" />
@@ -9,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Sign In</title>
-
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/Custom-Cs.css" rel="stylesheet" />
@@ -44,8 +41,12 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
+                        <li class="active navbar-left"><a href="join">Register</a></li>
+                        </ul>
+                         <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav navbar-left">
                             <li><a href="home">Home</a></li>
-                            <li><a href="#">About</a></li>
+                            <li><a href="#">About</a></li> 
                             <li><a href="#">Contact</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Start<b class="caret"></b></a>
@@ -63,8 +64,8 @@
                                     <li><a href="#">Learn2-3</a></li>
                                 </ul>
                             </li>
-                            <li class="active"><a href="login">Sign In</a></li>
-                        </ul>
+                         </ul>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -75,11 +76,9 @@
             <div class="form-horizontal">
                 <h4 style="background-color: #66CCFF; color: #FFFFFF; font-size: larger; height: 40px">&nbsp;&nbsp; &nbsp; &nbsp;Login</h4>
                 <div class="col-md-12">
-                    <asp:Button ID="btnFacebook" runat="server" Text="Log in using Facebook" class="btn btn-facebook sharp" /><br />
-                    <asp:Button ID="btnGoogle" runat="server" Text="Log in using Gmail" class="btn btn-gmail sharp"  />
+                    <asp:Button ID="btnFacebook" runat="server" Text="Log in using Facebook" class="btn btn-facebook btn-xs sharp "/><br/>
+                    <asp:Button ID="btnGoogle" runat="server" Text="Log in using Gmail" class="btn btn-gmail btn-xs sharp "  /></div>
                 </div>
-            </div>
-           
             <div>
                 <div class="form-group">
                     <div class="col-md-6"></div>

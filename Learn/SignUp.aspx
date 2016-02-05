@@ -20,6 +20,16 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+        function eraseText()
+        {
+            document.getElementById("txtusername").value = "";
+            document.getElementById("txtPassword").value = "";
+            document.getElementById("txtConfirmPass").value = "";
+            document.getElementById("txtName").value = "";
+            document.getElementById("txtEmail").value = "";
+        }
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -39,7 +49,12 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="home">Home</a></li>
+                            <li class="active"><a href="join">Register</a></li>
+                            <li ><a href="login">Log In</a></li>
+                        </ul>
+                        <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-left">
+                         <li><a href="home">Home</a></li>
                             <li><a href="#">About</a></li>
                             <li><a href="#">Contact</a></li>
                             <li class="dropdown">
@@ -58,10 +73,8 @@
                                     <li><a href="#">Learn2-3</a></li>
                                 </ul>
                             </li>
-                            <li class="active"><a href="join">Sign Up</a></li>
-                            <li ><a href="login">Sign In</a></li>
                         </ul>
-
+                        </div>
                     </div>
                 </div>
             </div>
@@ -93,7 +106,8 @@
                 <asp:TextBox ID="txtEmail" runat="server" Class="form-control" placeholder="Email" TextMode="Email"></asp:TextBox>
             </div>
             <div class="col-xs-11 space-vert">
-                <asp:Button ID="btnSignup" runat="server" Class ="btn btn-success" Text="Sign Up" OnClick="btnSignup_Click" />
+                <asp:Button ID="btnSignup" runat="server" Class ="btn btn-success" Text="Register" OnClick="btnSignup_Click" />
+                <input type="button" value="Clear" class="btn btn-danger raised round"  onclick="javascript:eraseText();"/> <br />
                 <asp:Label ID="lblMsg" runat="server"></asp:Label>
             </div>
 

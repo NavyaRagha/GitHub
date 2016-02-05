@@ -33,27 +33,31 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="home">Home</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Start<b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-header">Menu1</li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">Learn1</a></li>
-                                    <li><a href="#">Learn2</a></li>
-                                    <li><a href="#">Learn3</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li class="dropdown-header">Menu2</li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">Learn2-1</a></li>
-                                    <li><a href="#">Learn2-2</a></li>
-                                    <li><a href="#">Learn2-3</a></li>
-                                </ul>
-                            </li>
-                            <li class="active"><a href="login">Sign In</a></li>
+                            <li class="active"><a href="login">Log In</a></li>
                         </ul>
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav navbar-left"> 
+                                <li><a href="home">Home</a></li>
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">Contact</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Start<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-header">Menu1</li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#">Learn1</a></li>
+                                        <li><a href="#">Learn2</a></li>
+                                        <li><a href="#">Learn3</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li class="dropdown-header">Menu2</li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#">Learn2-1</a></li>
+                                        <li><a href="#">Learn2-2</a></li>
+                                        <li><a href="#">Learn2-3</a></li>
+                                    </ul>
+                                 </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

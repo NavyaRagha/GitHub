@@ -37,28 +37,33 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="home">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Start<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li class="dropdown-header">Menu1</li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Learn1</a></li>
-                                <li><a href="#">Learn2</a></li>
-                                <li><a href="#">Learn3</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li class="dropdown-header">Menu2</li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Learn2-1</a></li>
-                                <li><a href="#">Learn2-2</a></li>
-                                <li><a href="#">Learn2-3</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="join">Join Us</a></li>
+                        <li><a href="join">Register</a></li>
                         <li><a href="login">Log In</a></li>
                     </ul>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-left">
+                                <li class="active"><a href="home">Home</a></li>
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">Contact</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Start<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-header">Menu1</li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#">Learn1</a></li>
+                                        <li><a href="#">Learn2</a></li>
+                                        <li><a href="#">Learn3</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li class="dropdown-header">Menu2</li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#">Learn2-1</a></li>
+                                        <li><a href="#">Learn2-2</a></li>
+                                        <li><a href="#">Learn2-3</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                    </div>
                 </div>
             </div>
         </div> 
@@ -115,10 +120,7 @@
                         <img class="img-circle" src="Images/ArrowRight.png" alt="thumb01" width="140" height="140" />
                         <h2>IPhone</h2>
                         <p>
-                            A "Hello, world!" program is often used to introduce beginning programmers to a programming language. In general, it is simple enough to be understood easily, especially with the guidance of a teacher or a written guide.
-                    In addition, "Hello world!" can be a useful sanity test to make sure that a language's compiler, development environment, and run-time environment are correctly installed. Configuring a complete programming toolchain from scratch to the point where even trivial programs can be compiled and run can involve substantial amounts of work. For this reason, a simple program is used first when testing a new tool chain.
-                    A "Hello world!" program running on Sony's PlayStation Portable as a proof of concept.
-                    "Hello world!" is also used by computer hackers as a proof of concept that arbitrary code can be executed through an exploit where the system designers did not intend code to be executed—for example, on Sony's PlayStation Portable. This is the first step in using homemade content ("home brew") on such a device.
+                            A "Hello, world!"
                         </p>
                         <p><a class="btn-default" href="SignUp.aspx" role="button">View &raquo;</a></p>
                     </div>
@@ -126,10 +128,7 @@
                         <img class="img-circle" src="Images/ArrowLeft.png" alt="thumb02" width="140" height="140" />
                         <h2>Samsung</h2>
                         <p>
-                            A "Hello, world!" program is often used to introduce beginning programmers to a programming language. In general, it is simple enough to be understood easily, especially with the guidance of a teacher or a written guide.
-                            In addition, "Hello world!" can be a useful sanity test to make sure that a language's compiler, development environment, and run-time environment are correctly installed. Configuring a complete programming toolchain from scratch to the point where even trivial programs can be compiled and run can involve substantial amounts of work. For this reason, a simple program is used first when testing a new tool chain.
-                            A "Hello world!" program running on Sony's PlayStation Portable as a proof of concept.
-                            "Hello world!" is also used by computer hackers as a proof of concept that arbitrary code can be executed through an exploit where the system designers did not intend code to be executed—for example, on Sony's PlayStation Portable. This is the first step in using homemade content ("home brew") on such a device.
+                            A "Hello, world!" program 
                         </p>
                         <p><a class="btn-default" href="#" role="button">View &raquo;</a></p>
                     </div>
@@ -137,14 +136,34 @@
                         <img class="img-circle" src="Images/Sync.png" alt="thumb03" width="140" height="140" />
                         <h2>LG</h2>
                         <p>
-                            A "Hello, world!" program is often used to introduce beginning programmers to a programming language. In general, it is simple enough to be understood easily, especially with the guidance of a teacher or a written guide.
-                            In addition, "Hello world!" can be a useful sanity test to make sure that a language's compiler, development environment, and run-time environment are correctly installed. Configuring a complete programming toolchain from scratch to the point where even trivial programs can be compiled and run can involve substantial amounts of work. For this reason, a simple program is used first when testing a new tool chain.
-                            A "Hello world!" program running on Sony's PlayStation Portable as a proof of concept.
-                            "Hello world!" is also used by computer hackers as a proof of concept that arbitrary code can be executed through an exploit where the system designers did not intend code to be executed—for example, on Sony's PlayStation Portable. This is the first step in using homemade content ("home brew") on such a device.
+                            A "Hello, world!" program is often used to introduce beginning 
                         </p>
                         <p><a class="btn-default" href="#" role="button">View &raquo;</a></p>
                     </div>
-
+                     <div class="col-lg-4">
+                        <img class="img-circle" src="Images/ArrowRight.png" alt="thumb01" width="140" height="140" />
+                        <h2>IPhone</h2>
+                        <p>
+                            A "Hello, world!" program is often used to introduce beginning programmers 
+                        </p>
+                        <p><a class="btn-default" href="SignUp.aspx" role="button">View &raquo;</a></p>
+                    </div>
+                    <div class="col-lg-4">
+                        <img class="img-circle" src="Images/ArrowLeft.png" alt="thumb02" width="140" height="140" />
+                        <h2>Samsung</h2>
+                        <p>
+                            A "Hello, world!" program is often used to introduce beginning programmers to a programming language. In general, 
+                        </p>
+                        <p><a class="btn-default" href="#" role="button">View &raquo;</a></p>
+                    </div>
+                     <div class="col-lg-4">
+                        <img class="img-circle" src="Images/Sync.png" alt="thumb03" width="140" height="140" />
+                        <h2>LG</h2>
+                        <p>
+                            A "Hello, world!" program is often used to introduce beginning programmers to a programming language. In general, it is simple enough 
+                        </p>
+                        <p><a class="btn-default" href="#" role="button">View &raquo;</a></p>
+                    </div>
                 </div>
             </div>
             <!--Middle contents -->
