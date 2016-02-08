@@ -98,6 +98,7 @@
                     <div class="col-md-6">
                         <asp:Button runat="server" ID="btnResetPassword" CssClass="btn btn-default" Text="Reset" Visible="False" OnClick="btnResetPassword_Click"  />
                         <asp:LinkButton ID="btnCancel" runat="server" Text="Cancel" class="btn btn-danger raised round" PostBackUrl="login" /><br />
+                       
                     </div>
                 </div>
             </div>
