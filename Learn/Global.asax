@@ -11,12 +11,18 @@
         routes.EnableFriendlyUrls();
 
         routes.MapPageRoute("home", "home", "~/Default.aspx");
+
         routes.MapPageRoute("Signin", "Signin", "~/SignIn.aspx");
         routes.MapPageRoute("Login", "login", "~/SignIn.aspx");
+
         routes.MapPageRoute("register", "register", "~/SignUp.aspx");
         routes.MapPageRoute("join", "join", "~/SignUp.aspx");
+
         routes.MapPageRoute("forgot/password", "forgot/password", "~/ForgotPassword.aspx");
         routes.MapPageRoute("forgot/user", "forgot/user", "~/ForgotPassword.aspx");
+
+        routes.MapPageRoute("admin", "admin", "~/AdminHome.aspx");
+        routes.MapPageRoute("user", "user", "~/AdminHome.aspx");
     }
 
     void Application_Start(object sender, EventArgs e)
@@ -67,7 +73,7 @@
         // Note: The Session_End event is raised only when the sessionstate mode
         // is set to InProc in the Web.config file. If session mode is set to StateServer 
         // or SQLServer, the event is not raised.
-
+        
     }
 
 </script>

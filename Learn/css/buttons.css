@@ -16,6 +16,7 @@
 	font-weight: 700;
 	letter-spacing: 1px;
 	text-transform: uppercase;
+    font-family: Bodoni MT;
 }
 .btn:focus, .btn:active:focus, .btn.active:focus {
 	outline: 0 none;
@@ -51,14 +52,16 @@
 	box-shadow: none;
 }
 .btn-success {
-	background: #00bf6f;
+	/*background: #00bf6f;*/
+    background: #339933;
 	color: #ffffff;
 }
 .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open > .dropdown-toggle.btn-success {
 	background: #39bf87;
 }
 .btn-success:active, .btn-success.active {
-	background: #008c52;
+	/*background: #008c52;*/
+    background: #33ff33;
 	box-shadow: none;
 }
 

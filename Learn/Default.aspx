@@ -24,7 +24,7 @@
 <body>
      <form id="form1" runat="server" action="home">
     <div>
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar navbar-default navbar-fixed-top menu-Background" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -143,7 +143,14 @@
                         </p>
                         <p><a class="btn-default" href="#" role="button">View &raquo;</a></p>
                     </div>
-                    
+                     <div class="col-lg-4">
+                        <img class="img-circle" src="Images/computer.gif" alt="thumb03" width="140" height="140" />
+                        <h2>Learn Computers</h2>
+                        <p>
+                            What is Computer
+                        </p>
+                        <p><a class="btn-default" href="#" role="button">View &raquo;</a></p>
+                    </div>
                 </div>
             </div>
             <!--Middle contents -->

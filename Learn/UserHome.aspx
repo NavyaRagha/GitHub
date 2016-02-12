@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Home</title>
+    <title>Learn</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
@@ -24,7 +24,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="navbar navbar-default navbar-fixed-top menu-Background" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -44,7 +44,8 @@
                         </ul>
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav navbar-left">
-                                <li class="active"><a href="home">Home</a></li>
+                                <li ><a href="home">Home</a></li>
+                                <li class="active"><a href="user">Learn</a></li>
                                 <li><a href="#">About</a></li>
                                 <li><a href="#">Contact</a></li>
                                 <li class="dropdown">
@@ -68,6 +69,38 @@
                     </div>
                 </div>
             </div>
+            
+             <div class="container center" >
+                <div class="row">
+                    <asp:HiddenField ID="hdnusername" runat="server" />
+                        <asp:GridView ID="DataList1"  CssClass="table table-hover table-striped" runat="server" AutoGenerateColumns="false" RowStyle-BackColor="#A1DCF2" Font-Names="Arial" Font-Size="10pt"
+                HeaderStyle-BackColor="#3AC0F2" HeaderStyle-ForeColor="White" >
+                <Columns>
+                    <asp:BoundField DataField="CapitalLetters" HeaderText="Capital Letters" />
+                  <asp:BoundField DataField="SmallLetters" HeaderText="Small Letters" />
+                     <asp:BoundField DataField="Kannada" HeaderText="Kannada" />
+                     <asp:BoundField DataField="Hindi" HeaderText="Hindi" />
+                    
+                 <%--   <asp:TemplateField HeaderText="Audio / Video">
+                        <ItemTemplate>
+                            <asp:Literal ID="Literal1" runat="server"
+                                Text='<%# Page.ResolveClientUrl(Eval("Url").ToString()) %>'></asp:Literal>
+                        </ItemTemplate>
+                        <ItemStyle VerticalAlign="Top" Width="300px" />
+                    </asp:TemplateField>--%>
+           <asp:TemplateField HeaderText="Audio / Video">
+                    
+                <ItemTemplate>
+                    <audio controls="controls" id="audio-A">
+                        <source src='<%# "FileCS.ashx?id=" + Eval("Id") %>' type="audio/wav" />
+                    </audio>
+                </ItemTemplate>
+                   </asp:TemplateField >
+                </Columns>
+
+            </asp:GridView>
+                </div>
+             </div>
         </div>
         <asp:Label runat="server" ID="lblSuccess" CssClass="text-success" />
     </form>

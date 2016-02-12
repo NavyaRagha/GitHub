@@ -16,71 +16,70 @@ public partial class SignIn : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            if (!String.IsNullOrEmpty(Convert.ToString(Request.Cookies["UM"]) ) && (!String.IsNullOrEmpty(Convert.ToString(Request.Cookies ["PWD"]))))
+            if (!String.IsNullOrEmpty(Convert.ToString(Request.Cookies["um"]) ) && (!String.IsNullOrEmpty(Convert.ToString(Request.Cookies ["ptd"]))))
             {
-                txtUserName.Text = Request.Cookies["UM"].Value;
-                txtPassword.Attributes["value"] = Request.Cookies["PWD"].Value;
+                txtUserName.Text = Request.Cookies["um"].Value;
+                txtPassword.Attributes["value"] = Request.Cookies["ptd"].Value;
                 chkRemember.Checked = true;
             }
         }
+        Login_Click1(sender,e);
     }
-
-    protected void Login_Click(object sender, EventArgs e)
-    {
-      
-    }
-
+    
     protected void Login_Click1(object sender, EventArgs e)
     {
-        string cs = ConfigurationManager.ConnectionStrings["LearnData"].ConnectionString;
-        using (SqlConnection con = new SqlConnection(cs))
+        using (LearnDBConnection db = new LearnDBConnection())
         {
-            SqlCommand cmd =
-                new SqlCommand(
-                    "Select * from Users where Username='" + txtUserName.Text + "' and Password='" + txtPassword.Text +
-                    "'", con);
-            con.Open();
-            SqlDataAdapter sda = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            if (dt.Rows.Count != 0)
+            using (var trans = db.Database.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
-                if (chkRemember.Checked)
+                try
                 {
-                    Response.Cookies["UM"].Value = txtUserName.Text;
-                    Response.Cookies["PWD"].Value = txtPassword.Text;
-                    Response.Cookies["UM"].Expires = DateTime.Now.AddDays(-1);
-                    Response.Cookies["PWD"].Expires = DateTime.Now.AddDays(-1);
+                    var userlog = db.Users.Single(a => a.Username == txtUserName.Text && a.Password == txtPassword.Text);
+                    if (userlog != null)
+                    {
+                        if (chkRemember.Checked)
+                        {
+                            Response.Cookies["um"].Value = txtUserName.Text;
+                            Response.Cookies["ptd"].Value = txtPassword.Text;
+                            Response.Cookies["um"].Expires = DateTime.Now.AddDays(-1);
+                            Response.Cookies["ptd"].Expires = DateTime.Now.AddDays(-1);
+                        }
+                        else
+                        {
+                            Response.Cookies["um"].Expires = DateTime.Now.AddDays(-1);
+                            Response.Cookies["ptd"].Expires = DateTime.Now.AddDays(-1);
+
+                        }
+                        string utype;
+                        utype = userlog.Usertype.ToString().Trim().ToUpper();
+                        if (utype == "A")
+                        {
+                            Session["USERNAME"] = txtUserName.Text;
+                            Session["ut"] = utype;
+                            FormsAuthentication.RedirectFromLoginPage("admin", true); ;
+                           
+                        }
+                        else if (utype == "U")
+                        {
+
+                            Session["USERNAME"] = txtUserName.Text;
+                            Session["ut"] = utype;
+                            Session["lgpr"] = userlog.LanguagePrefered;
+                            FormsAuthentication.RedirectFromLoginPage("user", true); ;
+                           // Response.Redirect("user",false);
+                          
+                        }
+                    }
+                    else
+                    {
+                        lblError.Text = "Invalid User or Password! ";
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    Response.Cookies["UM"].Expires = DateTime.Now.AddDays(-1);
-                    Response.Cookies["PWD"].Expires = DateTime.Now.AddDays(-1);
-
                 }
-
-                string utype;
-                utype = dt.Rows[0][5].ToString().Trim();
-                if (utype == "A")
-                {
-                    Session["USERNAME"] = txtUserName.Text;
-                    Response.Redirect("~/AdminHome.aspx");
-                }
-                else if (utype == "U")
-                {
-
-                    Session["USERNAME"] = txtUserName.Text;
-                    FormsAuthentication.RedirectFromLoginPage(txtUserName.Text, true); ;
-                    Response.Redirect("~/UserHome.aspx");
-
-
-                }
-
-            }
-            else
-            {
-                lblError.Text = "Invalid User or Password! ";
-            }
+            
+        }
         }
     }
 }

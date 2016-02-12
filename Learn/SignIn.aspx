@@ -27,7 +27,7 @@
             </Scripts>
         </asp:ScriptManager>--%>
         <div>
-            <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="navbar navbar-default navbar-fixed-top menu-Background" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -74,7 +74,7 @@
         <!--Sign In Start -->
         <div class="container" style="border: 1px solid black;">
             <div class="form-horizontal">
-                <h4 style="background-color: #66CCFF; color: #FFFFFF; font-size: larger; height: 40px">&nbsp;&nbsp; &nbsp; &nbsp;Login</h4>
+                <h4 style="background-color: #C8F1F9; color: #FFFFFF; font-size: larger; height: 40px">&nbsp;&nbsp; &nbsp; &nbsp;Login</h4>
                 <div class="col-md-12">
                     <asp:Button ID="btnFacebook" runat="server" Text="Log in using Facebook" class="btn btn-facebook btn-xs sharp "/><br/>
                     <asp:Button ID="btnGoogle" runat="server" Text="Log in using Gmail" class="btn btn-gmail btn-xs sharp "  /></div>
@@ -84,7 +84,7 @@
                     <div class="col-md-6"></div>
                     <asp:Label runat="server" ID="lblUserName" CssClass="col-md-2 control-label" Text="Username"></asp:Label>
                     <div class="col-md-3">
-                        <asp:TextBox runat="server" CssClass="form-control" ID="txtUserName" ValidationGroup="vgsignin"></asp:TextBox>
+                        <asp:TextBox runat="server" CssClass="form-control" ID="txtUserName" Text="navya" ValidationGroup="vgsignin"></asp:TextBox>
                         <asp:LinkButton ID="lnkusername" runat="server" PostBackUrl="forgot/user">Forgot UserName!</asp:LinkButton><br />
                         <asp:RequiredFieldValidator ID="rfvUsername" CssClass="text-danger" ValidationGroup="vgsignin" runat="server" ErrorMessage="The UserName is Required!" ControlToValidate="txtUserName"></asp:RequiredFieldValidator>
                     </div>
@@ -93,7 +93,7 @@
                     <div class="col-md-6"></div>
                     <asp:Label runat="server" ID="Label2" CssClass="col-md-2 control-label" Text="Password"></asp:Label>
                     <div class="col-md-3">
-                        <asp:TextBox runat="server" CssClass="form-control" ValidationGroup="vgsignin" ID="txtPassword" TextMode="Password"></asp:TextBox>
+                        <asp:TextBox runat="server" CssClass="form-control" ValidationGroup="vgsignin" Text="123" ID="txtPassword" TextMode="Password"></asp:TextBox>
                         <asp:LinkButton ID="lbForgotPass" runat="server" PostBackUrl="forgot/password">Forgot Password!</asp:LinkButton><br />
                         <asp:RequiredFieldValidator ID="rfvPassword" ValidationGroup="vgsignin" CssClass="text-danger " runat="server" ErrorMessage="The Password is Required!" ControlToValidate="txtPassword"></asp:RequiredFieldValidator>
                     </div>

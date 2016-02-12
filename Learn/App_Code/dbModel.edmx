@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbLearnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Beg_Alphabet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CapitalLetter" Type="varchar" MaxLength="2" />
+          <Property Name="SmallLetter" Type="varchar" MaxLength="2" />
+          <Property Name="Explain" Type="varchar" MaxLength="25" />
+          <Property Name="SortOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="Beg_Files">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BegAlphabetId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="ContentType" Type="varchar" MaxLength="50" />
+          <Property Name="Play" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="beg_Ind_1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="Translate" Type="varchar" MaxLength="50" />
+          <Property Name="ContentType" Type="varchar" MaxLength="50" />
+          <Property Name="Data" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Beg_Result">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Result" Type="nchar" MaxLength="10" />
+          <Property Name="Date" Type="datetime2" Precision="7" />
+          <Property Name="BegTestId" Type="int" />
+          <Property Name="Correct" Type="int" />
+          <Property Name="wrong" Type="int" />
+        </EntityType>
+        <EntityType Name="Beg_Test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Course" Type="nvarchar" MaxLength="50" />
+          <Property Name="Day" Type="nchar" MaxLength="10" />
+          <Property Name="QuestionNumber" Type="int" />
+          <Property Name="Question" Type="varchar" MaxLength="50" />
+          <Property Name="Answer" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="beg_Tra_1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BegIndId" Type="int" Nullable="false" />
+          <Property Name="Kannada" Type="nvarchar" MaxLength="20" />
+          <Property Name="Hindi" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Beg_Translate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="begAlphabetId" Type="int" Nullable="false" />
+          <Property Name="Kannada" Type="nvarchar" MaxLength="8" />
+          <Property Name="Hindi" Type="nvarchar" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="CourseMst">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Lesson" Type="int" />
+          <Property Name="Topics" Type="int" />
+        </EntityType>
+        <EntityType Name="ForgotPassRequests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Uid" Type="int" />
+          <Property Name="RequestDateTime" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dbLearn.dbo.tblFiles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblFiles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="ContentType" Type="varchar" MaxLength="50" />
+          <Property Name="Data" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="LanguagePrefered" Type="nvarchar(max)" />
+          <Property Name="Usertype" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_Beg_Files_Beg_Alphabet">
+          <End Role="Beg_Alphabet" Type="Self.Beg_Alphabet" Multiplicity="1" />
+          <End Role="Beg_Files" Type="Self.Beg_Files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_Alphabet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_Files">
+              <PropertyRef Name="BegAlphabetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beg_Translate_Beg_Aplhabet">
+          <End Role="Beg_Alphabet" Type="Self.Beg_Alphabet" Multiplicity="1" />
+          <End Role="Beg_Translate" Type="Self.Beg_Translate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_Alphabet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_Translate">
+              <PropertyRef Name="begAlphabetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_begInd1">
+          <End Role="beg_Ind_1" Type="Self.beg_Ind_1" Multiplicity="1" />
+          <End Role="beg_Tra_1" Type="Self.beg_Tra_1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="beg_Ind_1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="beg_Tra_1">
+              <PropertyRef Name="BegIndId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForgotPassRequests_User">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="ForgotPassRequests" Type="Self.ForgotPassRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="ForgotPassRequests">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbLearnModelStoreContainer">
+          <EntitySet Name="Beg_Alphabet" EntityType="Self.Beg_Alphabet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Beg_Files" EntityType="Self.Beg_Files" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="beg_Ind_1" EntityType="Self.beg_Ind_1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Beg_Result" EntityType="Self.Beg_Result" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Beg_Test" EntityType="Self.Beg_Test" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="beg_Tra_1" EntityType="Self.beg_Tra_1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Beg_Translate" EntityType="Self.Beg_Translate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseMst" EntityType="Self.CourseMst" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ForgotPassRequests" EntityType="Self.ForgotPassRequests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFiles" EntityType="Self.tblFiles" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblFiles].[id] AS [id], 
+    [tblFiles].[Name] AS [Name], 
+    [tblFiles].[ContentType] AS [ContentType], 
+    [tblFiles].[Data] AS [Data]
+    FROM [dbo].[tblFiles] AS [tblFiles]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Beg_Files_Beg_Alphabet" Association="Self.FK_Beg_Files_Beg_Alphabet">
+            <End Role="Beg_Alphabet" EntitySet="Beg_Alphabet" />
+            <End Role="Beg_Files" EntitySet="Beg_Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beg_Translate_Beg_Aplhabet" Association="Self.FK_Beg_Translate_Beg_Aplhabet">
+            <End Role="Beg_Alphabet" EntitySet="Beg_Alphabet" />
+            <End Role="Beg_Translate" EntitySet="Beg_Translate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_begInd1" Association="Self.FK_begInd1">
+            <End Role="beg_Ind_1" EntitySet="beg_Ind_1" />
+            <End Role="beg_Tra_1" EntitySet="beg_Tra_1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForgotPassRequests_User" Association="Self.FK_ForgotPassRequests_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ForgotPassRequests" EntitySet="ForgotPassRequests" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbLearnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="LearnDBConnection" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Beg_Alphabet" EntityType="dbLearnModel.Beg_Alphabet" />
+          <EntitySet Name="beg_Ind_1" EntityType="dbLearnModel.beg_Ind_1" />
+          <EntitySet Name="Beg_Result" EntityType="dbLearnModel.Beg_Result" />
+          <EntitySet Name="Beg_Test" EntityType="dbLearnModel.Beg_Test" />
+          <EntitySet Name="beg_Tra_1" EntityType="dbLearnModel.beg_Tra_1" />
+          <EntitySet Name="Beg_Translate" EntityType="dbLearnModel.Beg_Translate" />
+          <EntitySet Name="CourseMsts" EntityType="dbLearnModel.CourseMst" />
+          <EntitySet Name="ForgotPassRequests" EntityType="dbLearnModel.ForgotPassRequest" />
+          <EntitySet Name="tblFiles" EntityType="dbLearnModel.tblFile" />
+          <AssociationSet Name="FK_Beg_Translate_Beg_Aplhabet" Association="dbLearnModel.FK_Beg_Translate_Beg_Aplhabet">
+            <End Role="Beg_Alphabet" EntitySet="Beg_Alphabet" />
+            <End Role="Beg_Translate" EntitySet="Beg_Translate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_begInd1" Association="dbLearnModel.FK_begInd1">
+            <End Role="beg_Ind_1" EntitySet="beg_Ind_1" />
+            <End Role="beg_Tra_1" EntitySet="beg_Tra_1" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="dbLearnModel.User" />
+          <AssociationSet Name="FK_ForgotPassRequests_User" Association="dbLearnModel.FK_ForgotPassRequests_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ForgotPassRequest" EntitySet="ForgotPassRequests" />
+          </AssociationSet>
+          <EntitySet Name="Beg_Files" EntityType="dbLearnModel.Beg_Files" />
+          <AssociationSet Name="FK_Beg_Files_Beg_Alphabet" Association="dbLearnModel.FK_Beg_Files_Beg_Alphabet">
+            <End Role="Beg_Alphabet" EntitySet="Beg_Alphabet" />
+            <End Role="Beg_Files" EntitySet="Beg_Files" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Beg_Alphabet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CapitalLetter" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="SmallLetter" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Explain" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="SortOrder" Type="Int32" />
+          <NavigationProperty Name="Beg_Translate" Relationship="dbLearnModel.FK_Beg_Translate_Beg_Aplhabet" FromRole="Beg_Alphabet" ToRole="Beg_Translate" />
+          <NavigationProperty Name="Beg_Files" Relationship="dbLearnModel.FK_Beg_Files_Beg_Alphabet" FromRole="Beg_Alphabet" ToRole="Beg_Files" />
+        </EntityType>
+        <EntityType Name="beg_Ind_1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Translate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Data" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="beg_Tra_1" Relationship="dbLearnModel.FK_begInd1" FromRole="beg_Ind_1" ToRole="beg_Tra_1" />
+        </EntityType>
+        <EntityType Name="Beg_Result">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Result" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="7" />
+          <Property Name="BegTestId" Type="Int32" />
+          <Property Name="Correct" Type="Int32" />
+          <Property Name="wrong" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Beg_Test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Course" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Day" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="QuestionNumber" Type="Int32" />
+          <Property Name="Question" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="beg_Tra_1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BegIndId" Type="Int32" Nullable="false" />
+          <Property Name="Kannada" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Hindi" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="beg_Ind_1" Relationship="dbLearnModel.FK_begInd1" FromRole="beg_Tra_1" ToRole="beg_Ind_1" />
+        </EntityType>
+        <EntityType Name="Beg_Translate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="begAlphabetId" Type="Int32" Nullable="false" />
+          <Property Name="Kannada" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="Hindi" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Beg_Alphabet" Relationship="dbLearnModel.FK_Beg_Translate_Beg_Aplhabet" FromRole="Beg_Translate" ToRole="Beg_Alphabet" />
+        </EntityType>
+        <EntityType Name="CourseMst">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Lesson" Type="Int32" />
+          <Property Name="Topics" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ForgotPassRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Uid" Type="Int32" />
+          <Property Name="RequestDateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="dbLearnModel.FK_ForgotPassRequests_User" FromRole="ForgotPassRequest" ToRole="User" />
+        </EntityType>
+        <EntityType Name="tblFile">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Data" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Beg_Translate_Beg_Aplhabet">
+          <End Type="dbLearnModel.Beg_Alphabet" Role="Beg_Alphabet" Multiplicity="1" />
+          <End Type="dbLearnModel.Beg_Translate" Role="Beg_Translate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_Alphabet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_Translate">
+              <PropertyRef Name="begAlphabetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_begInd1">
+          <End Type="dbLearnModel.beg_Ind_1" Role="beg_Ind_1" Multiplicity="1" />
+          <End Type="dbLearnModel.beg_Tra_1" Role="beg_Tra_1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="beg_Ind_1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="beg_Tra_1">
+              <PropertyRef Name="BegIndId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LanguagePrefered" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Usertype" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="ForgotPassRequests" Relationship="dbLearnModel.FK_ForgotPassRequests_User" FromRole="User" ToRole="ForgotPassRequest" />
+        </EntityType>
+        <Association Name="FK_ForgotPassRequests_User">
+          <End Type="dbLearnModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="dbLearnModel.ForgotPassRequest" Role="ForgotPassRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="ForgotPassRequest">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Beg_Files">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BegAlphabetId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Play" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Beg_Alphabet" Relationship="dbLearnModel.FK_Beg_Files_Beg_Alphabet" FromRole="Beg_Files" ToRole="Beg_Alphabet" />
+        </EntityType>
+        <Association Name="FK_Beg_Files_Beg_Alphabet">
+          <End Type="dbLearnModel.Beg_Alphabet" Role="Beg_Alphabet" Multiplicity="1" />
+          <End Type="dbLearnModel.Beg_Files" Role="Beg_Files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_Alphabet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_Files">
+              <PropertyRef Name="BegAlphabetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbLearnModelStoreContainer" CdmEntityContainer="LearnDBConnection">
+          <EntitySetMapping Name="Beg_Alphabet">
+            <EntityTypeMapping TypeName="dbLearnModel.Beg_Alphabet">
+              <MappingFragment StoreEntitySet="Beg_Alphabet">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Explain" ColumnName="Explain" />
+                <ScalarProperty Name="SmallLetter" ColumnName="SmallLetter" />
+                <ScalarProperty Name="CapitalLetter" ColumnName="CapitalLetter" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="beg_Ind_1">
+            <EntityTypeMapping TypeName="dbLearnModel.beg_Ind_1">
+              <MappingFragment StoreEntitySet="beg_Ind_1">
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="Translate" ColumnName="Translate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Beg_Result">
+            <EntityTypeMapping TypeName="dbLearnModel.Beg_Result">
+              <MappingFragment StoreEntitySet="Beg_Result">
+                <ScalarProperty Name="wrong" ColumnName="wrong" />
+                <ScalarProperty Name="Correct" ColumnName="Correct" />
+                <ScalarProperty Name="BegTestId" ColumnName="BegTestId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Beg_Test">
+            <EntityTypeMapping TypeName="dbLearnModel.Beg_Test">
+              <MappingFragment StoreEntitySet="Beg_Test">
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="QuestionNumber" ColumnName="QuestionNumber" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="beg_Tra_1">
+            <EntityTypeMapping TypeName="dbLearnModel.beg_Tra_1">
+              <MappingFragment StoreEntitySet="beg_Tra_1">
+                <ScalarProperty Name="Hindi" ColumnName="Hindi" />
+                <ScalarProperty Name="Kannada" ColumnName="Kannada" />
+                <ScalarProperty Name="BegIndId" ColumnName="BegIndId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Beg_Translate">
+            <EntityTypeMapping TypeName="dbLearnModel.Beg_Translate">
+              <MappingFragment StoreEntitySet="Beg_Translate">
+                <ScalarProperty Name="Hindi" ColumnName="Hindi" />
+                <ScalarProperty Name="Kannada" ColumnName="Kannada" />
+                <ScalarProperty Name="begAlphabetId" ColumnName="begAlphabetId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseMsts">
+            <EntityTypeMapping TypeName="dbLearnModel.CourseMst">
+              <MappingFragment StoreEntitySet="CourseMst">
+                <ScalarProperty Name="Topics" ColumnName="Topics" />
+                <ScalarProperty Name="Lesson" ColumnName="Lesson" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForgotPassRequests">
+            <EntityTypeMapping TypeName="dbLearnModel.ForgotPassRequest">
+              <MappingFragment StoreEntitySet="ForgotPassRequests">
+                <ScalarProperty Name="RequestDateTime" ColumnName="RequestDateTime" />
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFiles">
+            <EntityTypeMapping TypeName="dbLearnModel.tblFile">
+              <MappingFragment StoreEntitySet="tblFiles">
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="dbLearnModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Usertype" ColumnName="Usertype" />
+                <ScalarProperty Name="LanguagePrefered" ColumnName="LanguagePrefered" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Beg_Files">
+            <EntityTypeMapping TypeName="dbLearnModel.Beg_Files">
+              <MappingFragment StoreEntitySet="Beg_Files">
+                <ScalarProperty Name="Play" ColumnName="Play" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BegAlphabetId" ColumnName="BegAlphabetId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

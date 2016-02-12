@@ -13,7 +13,7 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/Custom-Cs.css" rel="stylesheet" />
-
+     <link href="css/buttons.css" rel="stylesheet" />
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -35,7 +35,7 @@
     <form id="form1" runat="server">
         
         <div>
-            <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="navbar navbar-default navbar-fixed-top menu-Background" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -80,33 +80,42 @@
             </div>
         </div>
         <!--Sign Up Open-->
-        <div class="center-page">
-            <label class="col-xs-11">Username</label>
+        <div class="center-page" >
+            <label class="col-xs-11 txt-fontLabel">User Name</label>
             <div class="col-xs-11">
-                <asp:TextBox ID="txtusername" runat="server" Class="form-control" placeholder="Username"></asp:TextBox>
+                <asp:TextBox ID="txtusername" runat="server" class="form-control  txt-fontContent" placeholder="Username"></asp:TextBox>
             </div>
 
-            <label class="col-xs-11">Password</label>
+            <label class="col-xs-11 txt-fontLabel">Password</label>
             <div class="col-xs-11">
-                <asp:TextBox ID="txtPassword" runat="server" Class="form-control" placeholder="Password" TextMode="Password"></asp:TextBox>
+                <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control  txt-fontContent " placeholder="Password" TextMode="Password"></asp:TextBox>
             </div>
             
-            <label class="col-xs-11">Confirm Password</label>
+            <label class="col-xs-11 txt-fontLabel">Confirm Password</label>
             <div class="col-xs-11">
-                <asp:TextBox ID="txtConfirmPass" runat="server" Class="form-control" placeholder="Confirm Password" TextMode="Password"></asp:TextBox>
+                <asp:TextBox ID="txtConfirmPass" runat="server" CssClass="form-control  txt-fontContent" placeholder="Confirm Password" TextMode="Password"></asp:TextBox>
             </div>
 
-            <label class="col-xs-11">Name</label>
+            <label class="col-xs-11 txt-fontLabel">Name</label>
             <div class="col-xs-11">
-                <asp:TextBox ID="txtName" runat="server" Class="form-control" placeholder="Name"></asp:TextBox>
+                <asp:TextBox ID="txtName" runat="server" CssClass="form-control  txt-fontContent" placeholder="Name"></asp:TextBox>
+            </div>
+
+            <label class="col-xs-11 txt-fontLabel">Prefered Language</label>
+            <div class="col-xs-11">
+                <asp:DropDownList ID="ddlPreferedLanguage" Class="form-control txt-fontContent"   runat="server">
+                     <asp:ListItem  Text="Select"  class="txt-fontContent" Value="Select" />
+                     <asp:ListItem Text="Kannada"  class="txt-fontContent"  Value="kn" />
+                     <asp:ListItem Text="Hindi" class="txt-fontContent"  Value="hi" />
+                </asp:DropDownList>
             </div>
             
-            <label class="col-xs-11">Email</label>
+            <label class="col-xs-11 txt-fontLabel">Email</label>
             <div class="col-xs-11">
-                <asp:TextBox ID="txtEmail" runat="server" Class="form-control" placeholder="Email" TextMode="Email"></asp:TextBox>
+                <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control txt-fontContent" placeholder="Email" TextMode="Email"></asp:TextBox>
             </div>
             <div class="col-xs-11 space-vert">
-                <asp:Button ID="btnSignup" runat="server" Class ="btn btn-success" Text="Register" OnClick="btnSignup_Click" />
+                <asp:Button ID="btnSignup" runat="server" CssClass ="btn btn-success raised round" Text="Register" OnClick="btnSignup_Click" />
                 <input type="button" value="Clear" class="btn btn-danger raised round"  onclick="javascript:eraseText();"/> <br />
                 <asp:Label ID="lblMsg" runat="server"></asp:Label>
             </div>

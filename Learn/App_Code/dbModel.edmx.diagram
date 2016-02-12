@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0530f70589784a76a5807b615725b717" Name="Diagram1">
+        <EntityTypeShape EntityType="dbLearnModel.Beg_Alphabet" Width="1.5" PointX="0.75" PointY="2.125" />
+        <EntityTypeShape EntityType="dbLearnModel.beg_Ind_1" Width="1.5" PointX="5.75" PointY="5" />
+        <EntityTypeShape EntityType="dbLearnModel.Beg_Result" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="dbLearnModel.Beg_Test" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="dbLearnModel.beg_Tra_1" Width="1.5" PointX="8" PointY="5.125" />
+        <EntityTypeShape EntityType="dbLearnModel.Beg_Translate" Width="1.5" PointX="3" PointY="3.625" />
+        <EntityTypeShape EntityType="dbLearnModel.CourseMst" Width="1.5" PointX="4.75" PointY="8.75" />
+        <EntityTypeShape EntityType="dbLearnModel.ForgotPassRequest" Width="1.5" PointX="8" PointY="1.25" />
+        <EntityTypeShape EntityType="dbLearnModel.tblFile" Width="1.5" PointX="6.75" PointY="8.75" />
+        <AssociationConnector Association="dbLearnModel.FK_Beg_Translate_Beg_Aplhabet" />
+        <AssociationConnector Association="dbLearnModel.FK_begInd1" />
+        <EntityTypeShape EntityType="dbLearnModel.User" Width="1.5" PointX="5.75" PointY="0.875" />
+        <AssociationConnector Association="dbLearnModel.FK_ForgotPassRequests_User" />
+        <EntityTypeShape EntityType="dbLearnModel.Beg_Files" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="dbLearnModel.FK_Beg_Files_Beg_Alphabet" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
