@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="UserHome.aspx.cs" Inherits="UserHome" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="utf-8" />
@@ -9,11 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Learn</title>
-
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/Custom-Cs.css" rel="stylesheet" />
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -44,7 +41,7 @@
                         </ul>
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav navbar-left">
-                                <li ><a href="home">Home</a></li>
+                                <li><a href="home">Home</a></li>
                                 <li class="active"><a href="user">Learn</a></li>
                                 <li><a href="#">About</a></li>
                                 <li><a href="#">Contact</a></li>
@@ -69,38 +66,71 @@
                     </div>
                 </div>
             </div>
-            
-             <div class="container center" >
+            <div class="container center">
                 <div class="row">
                     <asp:HiddenField ID="hdnusername" runat="server" />
-                        <asp:GridView ID="DataList1"  CssClass="table table-hover table-striped" runat="server" AutoGenerateColumns="false" RowStyle-BackColor="#A1DCF2" Font-Names="Arial" Font-Size="10pt"
-                HeaderStyle-BackColor="#3AC0F2" HeaderStyle-ForeColor="White" >
-                <Columns>
-                    <asp:BoundField DataField="CapitalLetters" HeaderText="Capital Letters" />
-                  <asp:BoundField DataField="SmallLetters" HeaderText="Small Letters" />
-                     <asp:BoundField DataField="Kannada" HeaderText="Kannada" />
-                     <asp:BoundField DataField="Hindi" HeaderText="Hindi" />
-                    
-                 <%--   <asp:TemplateField HeaderText="Audio / Video">
-                        <ItemTemplate>
-                            <asp:Literal ID="Literal1" runat="server"
-                                Text='<%# Page.ResolveClientUrl(Eval("Url").ToString()) %>'></asp:Literal>
-                        </ItemTemplate>
-                        <ItemStyle VerticalAlign="Top" Width="300px" />
-                    </asp:TemplateField>--%>
-           <asp:TemplateField HeaderText="Audio / Video">
-                    
-                <ItemTemplate>
-                    <audio controls="controls" id="audio-A">
-                        <source src='<%# "FileCS.ashx?id=" + Eval("Id") %>' type="audio/wav" />
-                    </audio>
-                </ItemTemplate>
-                   </asp:TemplateField >
-                </Columns>
+                    <asp:GridView ID="grdchaptr" CssClass="table table-hover table-striped" runat="server" AutoGenerateColumns="false" RowStyle-BackColor="#A1DCF2" Font-Names="Arial" Font-Size="10pt"
+                        HeaderStyle-BackColor="#3AC0F2" HeaderStyle-ForeColor="White">
+                        <Columns>
+                            <asp:BoundField DataField="CapitalLetters" HeaderText="Capital Letters" />
+                            <asp:BoundField DataField="SmallLetters" HeaderText="Small Letters" />
+                            <asp:BoundField DataField="Kannada" HeaderText="Kannada" />
+                            <asp:BoundField DataField="Hindi" HeaderText="Hindi" />
+                            <asp:TemplateField HeaderText="Audio / Video">
+                                <ItemTemplate>
+                                    <audio controls="controls" id="audio-A">
+                                        <source src='<%# "FileCS.ashx?id=" + Eval("Id") %>' type="audio/wav" />
+                                    </audio>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
 
-            </asp:GridView>
+                    <asp:GridView ID="questionnaireGrid" CssClass="table table-hover table-striped" runat="server" AutoGenerateColumns="False" OnRowDataBound="questionnaire_databound" DataKeyNames="QuestionID">
+                        <Columns>
+                            <asp:BoundField HeaderText="Question ID" Visible="true" DataField="QuestionNumber" />
+                            <asp:TemplateField HeaderText="Questions">
+                                <ItemTemplate>
+                                    <%# Eval("Question") %>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Response">
+                                <ItemTemplate>
+                                    <asp:GridView ID="grdResponse" CssClass="table table-hover table-striped" runat="server" AutoGenerateColumns="false" RowStyle-BackColor="#A1DCF2" Font-Names="Arial" Font-Size="10pt"
+                                        HeaderStyle-BackColor="#3AC0F2" HeaderStyle-ForeColor="White">
+                                        <Columns>
+                                                <asp:TemplateField HeaderText="Select">
+                                                <ItemTemplate>
+                                                    <asp:RadioButton ID="RadioButton1" runat="server" />
+                                                </ItemTemplate>
+                                                    </asp:TemplateField>
+                                              <asp:TemplateField HeaderText="Select">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+                                                </ItemTemplate>
+                                                    </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Audio / Video">
+                                                <ItemTemplate>
+                                                    <audio controls="controls" id="audio-A">
+                                                        <source src='<%# "FileCS.ashx?id=" + Eval("Id") %>' type="audio/wav" />
+                                                    </audio>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                    </asp:GridView>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                    <div class="form-group">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-3">
+                            <asp:ImageButton ID="imgPrevious" runat="server" Height="50" ImageUrl="~/Images/Prev.jpg" />
+                            <asp:ImageButton ID="imgNext" runat="server" Height="50" ImageUrl="~/Images/Next.jpg" OnClick="OnClick_Next" />
+                        </div>
+                    </div>
                 </div>
-             </div>
+            </div>
         </div>
         <asp:Label runat="server" ID="lblSuccess" CssClass="text-success" />
     </form>

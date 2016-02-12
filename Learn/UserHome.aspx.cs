@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 
 public partial class UserHome : System.Web.UI.Page
 {
+ 
     public class Learning
     {
         public int Id { get; set; }
@@ -31,6 +32,7 @@ public partial class UserHome : System.Web.UI.Page
             else
             {
                 BindGrid();
+
             }
         }
         if (Session["USERNAME"] != null)
@@ -47,12 +49,15 @@ public partial class UserHome : System.Web.UI.Page
     {
         int? getChaptersPerDay=0;
         int lessonCompleted = 0;
+        int iSkip = 0;
         using (LearnDBConnection db = new LearnDBConnection())
         {
             var newuser = db.Beg_Result.Where(x => x.Username == hdnusername.Value).ToList();
             if (!newuser.Any())
             {
+                imgPrevious.Visible = false;
                  getChaptersPerDay = db.CourseMsts.Where(x => x.Lesson == lessonCompleted + 1).Select(x => x.Topics).SingleOrDefault();
+                iSkip = 0;
             }
             var query = db.Beg_Alphabet.Join( db.Beg_Translate,x=> x.Id,y=> y.begAlphabetId , (x, y) =>new { x,y})
                 .Join(db.Beg_Files,a=> a .x.Id ,b=> b.BegAlphabetId ,(a,b)=> new  {a,b}).Take(Convert.ToInt32( getChaptersPerDay))
@@ -65,32 +70,39 @@ public partial class UserHome : System.Web.UI.Page
                 Hindi = xy.a.y.Hindi,
                 Play=xy.b.Play
             }).ToList();
-            DataList1.DataSource = query;
-            DataList1.DataBind();
+            grdchaptr.DataSource = query;
+            grdchaptr.DataBind();
         }
         
     }
+    protected void questionnaire_databound(object sender, GridViewRowEventArgs e)
+    {
 
-    //    //int sum = 0;
-    //    //String sRandomResult = "";
+        GridView rbl_responses = (GridView)e.Row.Cells[2].FindControl("grdResponse");
 
-    //    //sum += r.Next(0, 100);
-    //    //sRandomResult = sum.ToString();
+        question = (vwCurrentSurvey)e.Row.DataItem;
 
-    //    //Random oRandom =r.Next(0, 100);
-    //    //    int iLongitudPin = 5;
-    //    //    String sCharacters = "123456789ABCDEFGHIJKLMNPQRSTUVWXYZ123456789";
-    //    //    int iLength = sCharacters.Length;
-    //    //    char cCharacter;
-    //    //    int iLongitudNuevaCadena = iLongitudPin;
+        if (e.Row.RowType == DataControlRowType.DataRow && question != null)
+        {
+            rbl_responses..Add(new ListItem("A: " + question.ResponseA, "A"));
+            rbl_responses.Items.Add(new ListItem("B: " + question.ResponseB, "B"));
+            rbl_responses.Items.Add(new ListItem("C: " + question.ResponseC, "C"));
+            rbl_responses.Items.Add(new ListItem("D: " + question.ResponseD, "D"));
+        }
 
-    //    //    for (int i = 0; i < iLongitudNuevaCadena; i++)
-    //    //    {
-    //    //        cCharacter = sCharacters[oRandom.Next(iLength)];
-    //    //        sRandomResult += cCharacter.ToString();
-    //    //    }
-    //    return (randomNumbers);
-    //}
+    }
+
+
+   
+    protected void OnClick_Next(object sender, EventArgs e)
+    {
+        grdchaptr.Visible = false;
+
+        rblTest.DataSource=
+
+
+        Response.Write("hi");
+    }
 
     protected void btnSignOut_Click(object sender,EventArgs e)
     {
