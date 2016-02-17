@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Activities.Expressions;
+using System.Activities.Statements;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Web;
@@ -10,16 +13,16 @@ using System.Web.UI.WebControls;
 public partial class UserHome : System.Web.UI.Page
 {
  
-    public class Learning
-    {
-        public int Id { get; set; }
-        public string CapitalLetters { get; set; }
-        public string SmallLetters { get; set; }
-        public string Explain { get; set; }
-        public string Kannada { get;  set; }
-        public string Hindi { get;  set; }
-        public byte[] Play { get; set; }
-    }
+    //public class Learning
+    //{
+    //    public int? Id { get; set; }
+    //    public string CapitalLetters { get; set; }
+    //    public string SmallLetters { get; set; }
+    //    public string Explain { get; set; }
+    //    public string Kannada { get;  set; }
+    //    public string Hindi { get;  set; }
+    //    public byte[] Play { get; set; }
+    //}
     protected void Page_Load(object sender, EventArgs e)
     {
        
@@ -50,58 +53,164 @@ public partial class UserHome : System.Web.UI.Page
         int? getChaptersPerDay=0;
         int lessonCompleted = 0;
         int iSkip = 0;
+        string username = hdnusername.Value;
+
+       
+
         using (LearnDBConnection db = new LearnDBConnection())
         {
-            var newuser = db.Beg_Result.Where(x => x.Username == hdnusername.Value).ToList();
-            if (!newuser.Any())
+            var newuser = DataService.NewUser(username);
+            if (newuser==0)
             {
                 imgPrevious.Visible = false;
-                 getChaptersPerDay = db.CourseMsts.Where(x => x.Lesson == lessonCompleted + 1).Select(x => x.Topics).SingleOrDefault();
+                getChaptersPerDay= DataService.GetTopicsPerChapter(lessonCompleted + 1);
                 iSkip = 0;
             }
-            var query = db.Beg_Alphabet.Join( db.Beg_Translate,x=> x.Id,y=> y.begAlphabetId , (x, y) =>new { x,y})
-                .Join(db.Beg_Files,a=> a .x.Id ,b=> b.BegAlphabetId ,(a,b)=> new  {a,b}).Take(Convert.ToInt32( getChaptersPerDay))
-                .Select(xy => new Learning()
+            else
             {
-                Id=xy.a.x.Id,
-                CapitalLetters  = xy.a.x.CapitalLetter,
-                SmallLetters = xy.a.x.SmallLetter ,
-                Kannada = xy.a.y.Kannada,
-                Hindi = xy.a.y.Hindi,
-                Play=xy.b.Play
-            }).ToList();
-            grdchaptr.DataSource = query;
+                //skip sum coursemst topic and take nect lesson 
+                //iSkip=
+                //getChaptersPerDay
+
+            }
+            grdchaptr.DataSource = DataService.LoadChapters(getChaptersPerDay);
             grdchaptr.DataBind();
         }
         
     }
+  
+
     protected void questionnaire_databound(object sender, GridViewRowEventArgs e)
     {
-
-        GridView rbl_responses = (GridView)e.Row.Cells[2].FindControl("grdResponse");
-
-        question = (vwCurrentSurvey)e.Row.DataItem;
-
-        if (e.Row.RowType == DataControlRowType.DataRow && question != null)
+        int? getChaptersPerDay = 0;
+        int lessonCompleted = 0;
+        int iSkip = 0;
+        using (LearnDBConnection db = new LearnDBConnection())
         {
-            rbl_responses..Add(new ListItem("A: " + question.ResponseA, "A"));
-            rbl_responses.Items.Add(new ListItem("B: " + question.ResponseB, "B"));
-            rbl_responses.Items.Add(new ListItem("C: " + question.ResponseC, "C"));
-            rbl_responses.Items.Add(new ListItem("D: " + question.ResponseD, "D"));
-        }
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var newuser = DataService.NewUser(hdnusername.Value);
+                if (newuser == 0)
+                {
+                    imgPrevious.Visible = false;
+                    getChaptersPerDay = DataService.GetTopicsPerChapter(lessonCompleted + 1);
+                    iSkip = 0;
+                }
+                else
+                {
+                    //skip sum coursemst topic and take nect lesson 
+                    //iSkip=
+                    //getChaptersPerDay
 
+                }
+                 
+                Int32 Id = Convert.ToInt32(questionnaireGrid.DataKeys[e.Row.RowIndex].Value);
+                GridView grdResponse = e.Row.FindControl("grdResponse") as GridView;
+           
+                grdResponse.DataSource = DataService.LoadQuizWithRandomSet(getChaptersPerDay, Id);
+                grdResponse.DataBind();
+            }
+        }
+    }
+
+    protected void OnClick_Next(object sender, EventArgs e)
+    {
+        int? getChaptersPerDay = 0;
+        int lessonCompleted = 0;
+        int iSkip = 0;
+        using (LearnDBConnection db = new LearnDBConnection())
+        {
+            var newuser = DataService.NewUser(hdnusername.Value);
+            if (newuser == 0)
+            {
+                imgPrevious.Visible = false;
+                getChaptersPerDay = DataService.GetTopicsPerChapter(lessonCompleted + 1);
+                iSkip = 0;
+            }
+            else
+            {
+                //skip sum coursemst topic and take nect lesson 
+                //iSkip=
+                //getChaptersPerDay
+
+            }
+            questionnaireGrid.DataSource = DataService.LoadQuiz(getChaptersPerDay); 
+            questionnaireGrid.DataBind();
+        }
+        grdchaptr.Visible = false;
     }
 
 
-   
-    protected void OnClick_Next(object sender, EventArgs e)
+    protected void OnClick_Submit(object sender, EventArgs e)
     {
-        grdchaptr.Visible = false;
+        //Save Results table and test table
+        int? getChaptersPerDay = 0;
+        int lessonCompleted = 0;
+        int iSkip = 0;
+        int cor = 0;
+        int wrong = 0;
+        int ansall = 0;
+        var newuser = DataService.NewUser(hdnusername.Value);
+        if (newuser == 0)
+        {
+            imgPrevious.Visible = false;
+            getChaptersPerDay = DataService.GetTopicsPerChapter(lessonCompleted + 1);
+            iSkip = 0;
+        }
+        else
+        {
+            //skip sum coursemst topic and take nect lesson 
+            //iSkip=
+            //getChaptersPerDay
 
-        rblTest.DataSource=
+        }
 
 
-        Response.Write("hi");
+        foreach (GridViewRow row in questionnaireGrid.Rows)
+        {
+            //for (int i = 0; i < questionnaireGrid.Rows.Count; i++)
+                //{
+                //String header = questionnaireGrid.Columns[0].HeaderText;
+                String quest = row.Cells[0].Text;
+            String an = row.Cells[1].Text;
+
+            if (row.RowType == DataControlRowType.DataRow)
+            {
+                GridView gvChild = (GridView) row.FindControl("grdResponse");
+                // Then do the same method for Button control column 
+                if (gvChild != null)
+                {
+                    foreach (GridViewRow rowchild in gvChild.Rows)
+                    {
+                        if (rowchild.RowType == DataControlRowType.DataRow)
+                        {
+                            RadioButtonList btn = (RadioButtonList) rowchild.FindControl("RadioButton1");
+                            HiddenField hdnan = (HiddenField) rowchild.FindControl("hdnAn");
+                              if (btn.SelectedIndex < 0)
+                               
+                                    {
+                                ansall = ansall + 1;
+                                if (hdnan.Value == an)
+                                {
+                                    cor = cor + 1;
+                                }
+                                else
+                                {
+                                    wrong = wrong + 1;
+                                }
+                                break;
+                                // do your work
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            // }
+        }
+    
+
     }
 
     protected void btnSignOut_Click(object sender,EventArgs e)

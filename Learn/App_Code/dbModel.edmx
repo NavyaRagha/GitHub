@@ -52,7 +52,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BegAlphabetId" Type="int" />
           <Property Name="Course" Type="nvarchar" MaxLength="50" />
           <Property Name="Day" Type="nchar" MaxLength="10" />
           <Property Name="QuestionNumber" Type="int" />
@@ -76,6 +77,15 @@
           <Property Name="begAlphabetId" Type="int" Nullable="false" />
           <Property Name="Kannada" Type="nvarchar" MaxLength="8" />
           <Property Name="Hindi" Type="nvarchar" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="ButtonName">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="English" Type="nvarchar" MaxLength="50" />
+          <Property Name="Kannada" Type="nvarchar" MaxLength="50" />
+          <Property Name="Hindi" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CourseMst">
           <Key>
@@ -128,6 +138,18 @@ warning 6002: The table/view 'dbLearn.dbo.tblFiles' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Beg_Test_BegAlphabet">
+          <End Role="Beg_Alphabet" Type="Self.Beg_Alphabet" Multiplicity="0..1" />
+          <End Role="Beg_Test" Type="Self.Beg_Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_Alphabet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_Test">
+              <PropertyRef Name="BegAlphabetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Beg_Translate_Beg_Aplhabet">
           <End Role="Beg_Alphabet" Type="Self.Beg_Alphabet" Multiplicity="1" />
           <End Role="Beg_Translate" Type="Self.Beg_Translate" Multiplicity="*" />
@@ -172,6 +194,7 @@ warning 6002: The table/view 'dbLearn.dbo.tblFiles' does not have a primary key 
           <EntitySet Name="Beg_Test" EntityType="Self.Beg_Test" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="beg_Tra_1" EntityType="Self.beg_Tra_1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Beg_Translate" EntityType="Self.Beg_Translate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ButtonName" EntityType="Self.ButtonName" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseMst" EntityType="Self.CourseMst" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ForgotPassRequests" EntityType="Self.ForgotPassRequests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -186,6 +209,10 @@ warning 6002: The table/view 'dbLearn.dbo.tblFiles' does not have a primary key 
           <AssociationSet Name="FK_Beg_Files_Beg_Alphabet" Association="Self.FK_Beg_Files_Beg_Alphabet">
             <End Role="Beg_Alphabet" EntitySet="Beg_Alphabet" />
             <End Role="Beg_Files" EntitySet="Beg_Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beg_Test_BegAlphabet" Association="Self.FK_Beg_Test_BegAlphabet">
+            <End Role="Beg_Alphabet" EntitySet="Beg_Alphabet" />
+            <End Role="Beg_Test" EntitySet="Beg_Test" />
           </AssociationSet>
           <AssociationSet Name="FK_Beg_Translate_Beg_Aplhabet" Association="Self.FK_Beg_Translate_Beg_Aplhabet">
             <End Role="Beg_Alphabet" EntitySet="Beg_Alphabet" />
@@ -208,7 +235,6 @@ warning 6002: The table/view 'dbLearn.dbo.tblFiles' does not have a primary key 
           <EntitySet Name="Beg_Alphabet" EntityType="dbLearnModel.Beg_Alphabet" />
           <EntitySet Name="beg_Ind_1" EntityType="dbLearnModel.beg_Ind_1" />
           <EntitySet Name="Beg_Result" EntityType="dbLearnModel.Beg_Result" />
-          <EntitySet Name="Beg_Test" EntityType="dbLearnModel.Beg_Test" />
           <EntitySet Name="beg_Tra_1" EntityType="dbLearnModel.beg_Tra_1" />
           <EntitySet Name="Beg_Translate" EntityType="dbLearnModel.Beg_Translate" />
           <EntitySet Name="CourseMsts" EntityType="dbLearnModel.CourseMst" />
@@ -232,6 +258,12 @@ warning 6002: The table/view 'dbLearn.dbo.tblFiles' does not have a primary key 
             <End Role="Beg_Alphabet" EntitySet="Beg_Alphabet" />
             <End Role="Beg_Files" EntitySet="Beg_Files" />
           </AssociationSet>
+          <EntitySet Name="Beg_Test" EntityType="dbLearnModel.Beg_Test" />
+          <EntitySet Name="ButtonNames" EntityType="dbLearnModel.ButtonName" />
+          <AssociationSet Name="FK_Beg_Test_BegAlphabet" Association="dbLearnModel.FK_Beg_Test_BegAlphabet">
+            <End Role="Beg_Alphabet" EntitySet="Beg_Alphabet" />
+            <End Role="Beg_Test" EntitySet="Beg_Test" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Beg_Alphabet">
           <Key>
@@ -244,6 +276,7 @@ warning 6002: The table/view 'dbLearn.dbo.tblFiles' does not have a primary key 
           <Property Name="SortOrder" Type="Int32" />
           <NavigationProperty Name="Beg_Translate" Relationship="dbLearnModel.FK_Beg_Translate_Beg_Aplhabet" FromRole="Beg_Alphabet" ToRole="Beg_Translate" />
           <NavigationProperty Name="Beg_Files" Relationship="dbLearnModel.FK_Beg_Files_Beg_Alphabet" FromRole="Beg_Alphabet" ToRole="Beg_Files" />
+          <NavigationProperty Name="Beg_Test" Relationship="dbLearnModel.FK_Beg_Test_BegAlphabet" FromRole="Beg_Alphabet" ToRole="Beg_Test" />
         </EntityType>
         <EntityType Name="beg_Ind_1">
           <Key>
@@ -268,17 +301,6 @@ warning 6002: The table/view 'dbLearn.dbo.tblFiles' does not have a primary key 
           <Property Name="BegTestId" Type="Int32" />
           <Property Name="Correct" Type="Int32" />
           <Property Name="wrong" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Beg_Test">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Course" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Day" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="QuestionNumber" Type="Int32" />
-          <Property Name="Question" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="beg_Tra_1">
           <Key>
@@ -398,6 +420,40 @@ warning 6002: The table/view 'dbLearn.dbo.tblFiles' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Beg_Test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BegAlphabetId" Type="Int32" />
+          <Property Name="Course" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Day" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="QuestionNumber" Type="Int32" />
+          <Property Name="Question" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Beg_Alphabet" Relationship="dbLearnModel.FK_Beg_Test_BegAlphabet" FromRole="Beg_Test" ToRole="Beg_Alphabet" />
+        </EntityType>
+        <EntityType Name="ButtonName">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="English" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Kannada" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Hindi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Beg_Test_BegAlphabet">
+          <End Type="dbLearnModel.Beg_Alphabet" Role="Beg_Alphabet" Multiplicity="0..1" />
+          <End Type="dbLearnModel.Beg_Test" Role="Beg_Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_Alphabet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_Test">
+              <PropertyRef Name="BegAlphabetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -436,18 +492,6 @@ warning 6002: The table/view 'dbLearn.dbo.tblFiles' does not have a primary key 
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Result" ColumnName="Result" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Beg_Test">
-            <EntityTypeMapping TypeName="dbLearnModel.Beg_Test">
-              <MappingFragment StoreEntitySet="Beg_Test">
-                <ScalarProperty Name="Answer" ColumnName="Answer" />
-                <ScalarProperty Name="Question" ColumnName="Question" />
-                <ScalarProperty Name="QuestionNumber" ColumnName="QuestionNumber" />
-                <ScalarProperty Name="Day" ColumnName="Day" />
-                <ScalarProperty Name="Course" ColumnName="Course" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -520,6 +564,29 @@ warning 6002: The table/view 'dbLearn.dbo.tblFiles' does not have a primary key 
                 <ScalarProperty Name="ContentType" ColumnName="ContentType" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="BegAlphabetId" ColumnName="BegAlphabetId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Beg_Test">
+            <EntityTypeMapping TypeName="dbLearnModel.Beg_Test">
+              <MappingFragment StoreEntitySet="Beg_Test">
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="QuestionNumber" ColumnName="QuestionNumber" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="BegAlphabetId" ColumnName="BegAlphabetId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ButtonNames">
+            <EntityTypeMapping TypeName="dbLearnModel.ButtonName">
+              <MappingFragment StoreEntitySet="ButtonName">
+                <ScalarProperty Name="Hindi" ColumnName="Hindi" />
+                <ScalarProperty Name="Kannada" ColumnName="Kannada" />
+                <ScalarProperty Name="English" ColumnName="English" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

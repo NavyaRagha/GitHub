@@ -15,10 +15,10 @@ public static  class RandomService
         //
     }
 
-    public static List<int> GenerateRandom()
+    public static List<int?> GenerateRandom()
     {
         Random r = new Random();
-        List<int> randomNumbers = new List<int>();
+        List<int?> randomNumbers = new List<int?>();
 
         for (int i = 0; i < 3; i++)
         {

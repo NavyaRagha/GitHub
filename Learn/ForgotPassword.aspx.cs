@@ -50,17 +50,17 @@ public partial class ForgotPassword : System.Web.UI.Page
                 PassrecMail.Body = EmailBody;
                 PassrecMail.IsBodyHtml = true;
                 PassrecMail.Subject = "Reset Password";
-                // < network host = "mail.cedarglenhomes.com" port = "1025" userName = "it@cedarglenhomes.com" password = "guard1*n" />
+                // < network host = "mail.momle.com" port = "1025" userName = "it@cedarglenhomes.com" password = "guard1*n" />
 
-                  SmtpClient SMTP = new SmtpClient("smtp.gmail.com", 465);
+                SmtpClient SMTP = new SmtpClient("smtp.gmail.com", 465);
                 SMTP.DeliveryMethod = SmtpDeliveryMethod.Network;
-               // SmtpClient SMTP = new SmtpClient("mail.cedarglenhomes.com", 1025);
+               // SmtpClient SMTP = new SmtpClient("mail.momle.com", 1025);
                 SMTP.Credentials = new NetworkCredential()
                 {
                     UserName = "navs.navya@gmail.com",
                     Password = "#canada1234"
 
-                    //UserName = "it@cedarglenhomes.com",
+                    //UserName = "it@momle.com",
                     //Password = "guard1*n"
                 };
                 SMTP.EnableSsl = true;

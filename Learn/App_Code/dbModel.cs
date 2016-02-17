@@ -17,6 +17,7 @@ public partial class Beg_Alphabet
     {
         this.Beg_Translate = new HashSet<Beg_Translate>();
         this.Beg_Files = new HashSet<Beg_Files>();
+        this.Beg_Test = new HashSet<Beg_Test>();
     }
 
     public int Id { get; set; }
@@ -29,6 +30,8 @@ public partial class Beg_Alphabet
     public virtual ICollection<Beg_Translate> Beg_Translate { get; set; }
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     public virtual ICollection<Beg_Files> Beg_Files { get; set; }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    public virtual ICollection<Beg_Test> Beg_Test { get; set; }
 }
 
 public partial class Beg_Files
@@ -75,11 +78,14 @@ public partial class Beg_Result
 public partial class Beg_Test
 {
     public int Id { get; set; }
+    public Nullable<int> BegAlphabetId { get; set; }
     public string Course { get; set; }
     public string Day { get; set; }
     public Nullable<int> QuestionNumber { get; set; }
     public string Question { get; set; }
     public string Answer { get; set; }
+
+    public virtual Beg_Alphabet Beg_Alphabet { get; set; }
 }
 
 public partial class beg_Tra_1
@@ -100,6 +106,14 @@ public partial class Beg_Translate
     public string Hindi { get; set; }
 
     public virtual Beg_Alphabet Beg_Alphabet { get; set; }
+}
+
+public partial class ButtonName
+{
+    public int Id { get; set; }
+    public string English { get; set; }
+    public string Kannada { get; set; }
+    public string Hindi { get; set; }
 }
 
 public partial class CourseMst

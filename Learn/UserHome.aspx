@@ -86,12 +86,22 @@
                         </Columns>
                     </asp:GridView>
 
-                    <asp:GridView ID="questionnaireGrid" CssClass="table table-hover table-striped" runat="server" AutoGenerateColumns="False" OnRowDataBound="questionnaire_databound" DataKeyNames="QuestionID">
+                    <asp:GridView ID="questionnaireGrid" CssClass="table table-hover table-striped" runat="server" AutoGenerateColumns="False" OnRowDataBound="questionnaire_databound" DataKeyNames="Id">
                         <Columns>
-                            <asp:BoundField HeaderText="Question ID" Visible="true" DataField="QuestionNumber" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:HiddenField ID="hdnAn" runat="server" Value=<%# Eval("An") %> />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:HiddenField ID="hdnid" runat="server" Value =<%# Eval("Id") %> />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField HeaderText="Question ID" Visible="true" DataField="QuestionId" />
                             <asp:TemplateField HeaderText="Questions">
                                 <ItemTemplate>
-                                    <%# Eval("Question") %>
+                                    <%# Eval("CapitalLetters") %>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Response">
@@ -99,16 +109,28 @@
                                     <asp:GridView ID="grdResponse" CssClass="table table-hover table-striped" runat="server" AutoGenerateColumns="false" RowStyle-BackColor="#A1DCF2" Font-Names="Arial" Font-Size="10pt"
                                         HeaderStyle-BackColor="#3AC0F2" HeaderStyle-ForeColor="White">
                                         <Columns>
-                                                <asp:TemplateField HeaderText="Select">
+                                            <asp:TemplateField HeaderText="Select">
                                                 <ItemTemplate>
-                                                    <asp:RadioButton ID="RadioButton1" runat="server" />
+                                                    <asp:RadioButtonList ID="RadioButton1" runat="server" />
+                                                    <%--<asp:RadioButtonList ID="RadioButtonList1" runat="server">
+                                                        <asp:ListItem>north</asp:ListItem>
+                                                        <asp:ListItem>west</asp:ListItem>
+                                                    </asp:RadioButtonList>--%>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+                                                        ControlToValidate="RadioButton1" ErrorMessage="RequiredFieldValidator">
+                                                    </asp:RequiredFieldValidator>
                                                 </ItemTemplate>
-                                                    </asp:TemplateField>
-                                              <asp:TemplateField HeaderText="Select">
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Kannada">
                                                 <ItemTemplate>
-                                                    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+                                                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("Kannada") %>'></asp:Label>
                                                 </ItemTemplate>
-                                                    </asp:TemplateField>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Hindi">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("Hindi") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Audio / Video">
                                                 <ItemTemplate>
                                                     <audio controls="controls" id="audio-A">
@@ -127,6 +149,7 @@
                         <div class="col-md-3">
                             <asp:ImageButton ID="imgPrevious" runat="server" Height="50" ImageUrl="~/Images/Prev.jpg" />
                             <asp:ImageButton ID="imgNext" runat="server" Height="50" ImageUrl="~/Images/Next.jpg" OnClick="OnClick_Next" />
+                            <asp:ImageButton ID="imgSubmit" runat="server" Height="50" ImageUrl="~/Images/Next.jpg" OnClick="OnClick_Submit" />
                         </div>
                     </div>
                 </div>
