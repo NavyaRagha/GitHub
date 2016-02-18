@@ -17,9 +17,33 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-</head>
-<body>
-    <form id="form1" runat="server">
+    <script>
+        function CheckOtherIsCheckedByGVID(spanChk) {
+            var IsChecked = spanChk.checked;
+            if (IsChecked) {
+                spanChk.parentElement.parentElement.style.backgroundColor = '#228b22';
+                spanChk.parentElement.parentElement.style.color = 'white';
+            }
+
+            var CurrentRdbID = spanChk.id;
+            var Chk = spanChk;
+            Parent = document.getElementById('grdResponse');
+            var items = Parent.getElementsByTagName('input');
+
+            for (i = 0; i < items.length; i++) {
+                if (items[i].id != CurrentRdbID && items[i].type == "radio") {
+                    if (items[i].checked) {
+                        items[i].checked = false;
+                        items[i].parentElement.parentElement.style.backgroundColor = 'white';
+                        items[i].parentElement.parentElement.style.color = 'black';
+                    }
+                }
+            }
+        }
+    </script>
+            </head>
+            <body>
+            <form id="form1" runat="server">
         <div>
             <div class="navbar navbar-default navbar-fixed-top menu-Background" role="navigation">
                 <div class="container">
@@ -101,7 +125,7 @@
                             <asp:BoundField HeaderText="Question ID" Visible="true" DataField="QuestionId" />
                             <asp:TemplateField HeaderText="Questions">
                                 <ItemTemplate>
-                                    <%# Eval("CapitalLetters") %>
+                                    <%# Eval("Question") %>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Response">
@@ -111,7 +135,9 @@
                                         <Columns>
                                             <asp:TemplateField HeaderText="Select">
                                                 <ItemTemplate>
-                                                    <asp:RadioButtonList ID="RadioButton1" runat="server" />
+                                                    <asp:RadioButtonList name="action" GroupName="Same"  onclick="javascript:CheckOtherIsCheckedByGVID(this);" ID="RadioButton1"  runat="server" >
+                                                        <asp:ListItem ></asp:ListItem>
+                                                    </asp:RadioButtonList>
                                                     <%--<asp:RadioButtonList ID="RadioButtonList1" runat="server">
                                                         <asp:ListItem>north</asp:ListItem>
                                                         <asp:ListItem>west</asp:ListItem>
@@ -157,19 +183,19 @@
         </div>
         <asp:Label runat="server" ID="lblSuccess" CssClass="text-success" />
     </form>
-    <!--Footer -->
-    <hr />
-    <footer>
-        <div class="container">
+        <!--Footer -->
+            <hr />
+            <footer>
+            <div class="container">
             <p class="pull-right"><a href="#">Back to top</a></p>
             <p>
-                &copy 2015 TechTeach.com &middot; <a href="Default.aspx">Home</a>
-                <a href="#">About</a>&middot;<a href="#">Contact</a> &middot;<a href="#">Start</a>
+            &copy 2015 TechTeach.com &middot; <a href="Default.aspx">Home</a>
+            <a href="#">About</a>&middot;<a href="#">Contact</a> &middot;<a href="#">Start</a>
             </p>
-        </div>
-    </footer>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            </div>
+            </footer>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 </body>

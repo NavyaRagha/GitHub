@@ -21,14 +21,14 @@ public class FileCS : IHttpHandler
     public void ProcessRequest(HttpContext context)
     {
         int id = int.Parse(context.Request.QueryString["id"]);
-        string strConnString = ConfigurationManager.ConnectionStrings["LearnDBConnection"].ConnectionString;
+        string strConnString = ConfigurationManager.ConnectionStrings["dbExtranetEntities"].ConnectionString;
 
         string name1;
         string contentType1;
         byte[] byt;
 
 
-        using (LearnDBConnection db = new LearnDBConnection())
+        using (dbExtranetEntities db = new dbExtranetEntities())
         {
             var playlist = db.Beg_Files.Where(x => x.BegAlphabetId == id)
                 .Select(xy => new Plays()

@@ -28,7 +28,7 @@ public partial class SignIn : System.Web.UI.Page
     
     protected void Login_Click1(object sender, EventArgs e)
     {
-        using (LearnDBConnection db = new LearnDBConnection())
+        using (dbExtranetEntities db = new dbExtranetEntities())
         {
             using (var trans = db.Database.BeginTransaction(IsolationLevel.ReadUncommitted))
             {

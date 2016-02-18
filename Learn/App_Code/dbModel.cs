@@ -15,9 +15,9 @@ public partial class Beg_Alphabet
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
     public Beg_Alphabet()
     {
-        this.Beg_Translate = new HashSet<Beg_Translate>();
         this.Beg_Files = new HashSet<Beg_Files>();
         this.Beg_Test = new HashSet<Beg_Test>();
+        this.Beg_Translate = new HashSet<Beg_Translate>();
     }
 
     public int Id { get; set; }
@@ -27,11 +27,11 @@ public partial class Beg_Alphabet
     public Nullable<int> SortOrder { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<Beg_Translate> Beg_Translate { get; set; }
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     public virtual ICollection<Beg_Files> Beg_Files { get; set; }
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     public virtual ICollection<Beg_Test> Beg_Test { get; set; }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    public virtual ICollection<Beg_Translate> Beg_Translate { get; set; }
 }
 
 public partial class Beg_Files

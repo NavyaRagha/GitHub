@@ -38,7 +38,7 @@ public static  class DataService
     public static Int32    NewUser(string username)
     {
         Int32 result = 0;
-        using (LearnDBConnection db = new LearnDBConnection())
+        using (dbExtranetEntities db = new dbExtranetEntities())
         {
               result = db.Beg_Result.Where(x => x.Username == username).ToList().Count;
 
@@ -49,7 +49,7 @@ public static  class DataService
     public static int? GetTopicsPerChapter(Int32 lessoncompleted)
     {
         int? result = 0;
-        using (LearnDBConnection db = new LearnDBConnection())
+        using (dbExtranetEntities db = new dbExtranetEntities())
         {
 
             result = db.CourseMsts.Where(x => x.Lesson == lessoncompleted).Select(x => x.Topics).SingleOrDefault();
@@ -60,7 +60,7 @@ public static  class DataService
     public static List<Learning> LoadChapters(int? getchaptersperday)
     {
         List<Learning> resultList ;
-        using (LearnDBConnection db = new LearnDBConnection())
+        using (dbExtranetEntities db = new dbExtranetEntities())
         {
 
             resultList = db.Beg_Alphabet.Join(db.Beg_Translate, x => x.Id, y => y.begAlphabetId, (x, y) => new {x, y})
@@ -83,7 +83,7 @@ public static  class DataService
         List<Learning> randomList = LoadChapters(getchaptersperday);
         List<LearningQuiz> resultList;
         randomList = randomList.Where(x => RandomService.GenerateRandom().Contains(x.Id)).ToList();
-        using (LearnDBConnection db = new LearnDBConnection())
+        using (dbExtranetEntities db = new dbExtranetEntities())
         {
             
             resultList= db.Beg_Test.Join(db.Beg_Translate, x => x.Id, y => y.begAlphabetId, (x, y) => new { x, y })
@@ -105,7 +105,7 @@ public static  class DataService
         List<Learning> resultList = null;
         List<Learning> resultRandomList = null;
         Learning[] resultList1 = null;
-        using (LearnDBConnection db = new LearnDBConnection())
+        using (dbExtranetEntities db = new dbExtranetEntities())
         {
             List<int?> randomnum = RandomService.GenerateRandom();
             resultList = db.Beg_Test.Join(db.Beg_Translate, x => x.Id, y => y.begAlphabetId, (x, y) => new { x, y })

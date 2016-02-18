@@ -30,7 +30,7 @@ public partial class Play : System.Web.UI.Page
     }
     protected void btnUpload_Click(object sender, EventArgs e)
     {
-        using (LearnDBConnection db = new LearnDBConnection())
+        using (dbExtranetEntities db = new dbExtranetEntities())
         {
             using (var trans = db.Database.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
@@ -88,7 +88,7 @@ public partial class Play : System.Web.UI.Page
         //string Url;
         //string Name;
         //byte[] Data;
-        //string strConnString = ConfigurationManager.ConnectionStrings["LearnDBConnection"].ConnectionString;
+        //string strConnString = ConfigurationManager.ConnectionStrings["dbExtranetEntities"].ConnectionString;
         //using (SqlConnection con = new SqlConnection(strConnString))
         //{
         //    using (SqlCommand cmd = new SqlCommand())

@@ -57,7 +57,7 @@ public partial class UserHome : System.Web.UI.Page
 
        
 
-        using (LearnDBConnection db = new LearnDBConnection())
+        using (dbExtranetEntities db = new dbExtranetEntities())
         {
             var newuser = DataService.NewUser(username);
             if (newuser==0)
@@ -85,7 +85,7 @@ public partial class UserHome : System.Web.UI.Page
         int? getChaptersPerDay = 0;
         int lessonCompleted = 0;
         int iSkip = 0;
-        using (LearnDBConnection db = new LearnDBConnection())
+        using (dbExtranetEntities db = new dbExtranetEntities())
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
@@ -118,7 +118,7 @@ public partial class UserHome : System.Web.UI.Page
         int? getChaptersPerDay = 0;
         int lessonCompleted = 0;
         int iSkip = 0;
-        using (LearnDBConnection db = new LearnDBConnection())
+        using (dbExtranetEntities db = new dbExtranetEntities())
         {
             var newuser = DataService.NewUser(hdnusername.Value);
             if (newuser == 0)

@@ -24,7 +24,7 @@ public partial class SignUp : System.Web.UI.Page
             if (txtPassword.Text == txtConfirmPass.Text)
             {
 
-                using (LearnDBConnection db = new LearnDBConnection())
+                using (dbExtranetEntities db = new dbExtranetEntities())
                 {
                     using (var trans = db.Database.BeginTransaction(IsolationLevel.ReadUncommitted))
                     {

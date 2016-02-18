@@ -20,7 +20,7 @@ public partial class PlayNow : System.Web.UI.Page
     }
     private void BindGrid()
     {
-        using (LearnDBConnection db = new LearnDBConnection())
+        using (dbExtranetEntities db = new dbExtranetEntities())
         {
             var query = db.tblFiles.Select(x => x).ToList();
         }
