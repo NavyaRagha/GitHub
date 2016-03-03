@@ -1,0 +1,469 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbExtranetNewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Beg_Word">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Word" Type="varchar" MaxLength="25" />
+          <Property Name="Explain" Type="varchar" MaxLength="50" />
+          <Property Name="SortOrder" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dbExtranetNew.dbo.Beg_WordCourse' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Beg_WordCourse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Lesson" Type="int" />
+          <Property Name="Topics" Type="int" />
+        </EntityType>
+        <EntityType Name="Beg_WordFiles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BegWordId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="ContentType" Type="varchar" MaxLength="50" />
+          <Property Name="Play" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Beg_WordResult">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Result" Type="nchar" MaxLength="10" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="BegWordTestId" Type="int" />
+          <Property Name="Correct" Type="int" />
+          <Property Name="wrong" Type="int" />
+        </EntityType>
+        <EntityType Name="Beg_WordTest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BegWordId" Type="int" />
+          <Property Name="BegCourseId" Type="int" />
+          <Property Name="Day" Type="nchar" MaxLength="10" />
+          <Property Name="QuestionNumber" Type="int" />
+          <Property Name="Question" Type="varchar" MaxLength="50" />
+          <Property Name="Answer" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Beg_WordTranslate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BegWordId" Type="int" Nullable="false" />
+          <Property Name="Kannada" Type="nvarchar" MaxLength="8" />
+          <Property Name="KannadaDesc" Type="nvarchar" MaxLength="50" />
+          <Property Name="Hindi" Type="nvarchar" MaxLength="8" />
+          <Property Name="HindiDesc" Type="nvarchar" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="Beg_WordUserTest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BegWordId" Type="int" />
+          <Property Name="Username" Type="nvarchar(max)" />
+          <Property Name="BegWordTestId" Type="int" />
+          <Property Name="Day" Type="nchar" MaxLength="10" />
+          <Property Name="QuestionNumber" Type="int" />
+          <Property Name="Question" Type="varchar" MaxLength="50" />
+          <Property Name="Answer" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Beg_Test_Word">
+          <End Role="Beg_Word" Type="Self.Beg_Word" Multiplicity="0..1" />
+          <End Role="Beg_WordTest" Type="Self.Beg_WordTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_Word">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_WordTest">
+              <PropertyRef Name="BegWordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beg_WordFiles_Beg_Word">
+          <End Role="Beg_Word" Type="Self.Beg_Word" Multiplicity="1" />
+          <End Role="Beg_WordFiles" Type="Self.Beg_WordFiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_Word">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_WordFiles">
+              <PropertyRef Name="BegWordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beg_WordResult_Beg_WordTest">
+          <End Role="Beg_WordTest" Type="Self.Beg_WordTest" Multiplicity="0..1" />
+          <End Role="Beg_WordResult" Type="Self.Beg_WordResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_WordTest">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_WordResult">
+              <PropertyRef Name="BegWordTestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beg_WordTranslate_Beg_Word">
+          <End Role="Beg_Word" Type="Self.Beg_Word" Multiplicity="1" />
+          <End Role="Beg_WordTranslate" Type="Self.Beg_WordTranslate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_Word">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_WordTranslate">
+              <PropertyRef Name="BegWordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beg_WordUserTest_BegWord">
+          <End Role="Beg_Word" Type="Self.Beg_Word" Multiplicity="0..1" />
+          <End Role="Beg_WordUserTest" Type="Self.Beg_WordUserTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_Word">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_WordUserTest">
+              <PropertyRef Name="BegWordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbExtranetNewModelStoreContainer">
+          <EntitySet Name="Beg_Word" EntityType="Self.Beg_Word" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Beg_WordFiles" EntityType="Self.Beg_WordFiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Beg_WordResult" EntityType="Self.Beg_WordResult" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Beg_WordTest" EntityType="Self.Beg_WordTest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Beg_WordTranslate" EntityType="Self.Beg_WordTranslate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Beg_WordUserTest" EntityType="Self.Beg_WordUserTest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Beg_WordCourse" EntityType="Self.Beg_WordCourse" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Beg_WordCourse].[Id] AS [Id], 
+    [Beg_WordCourse].[Lesson] AS [Lesson], 
+    [Beg_WordCourse].[Topics] AS [Topics]
+    FROM [dbo].[Beg_WordCourse] AS [Beg_WordCourse]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Beg_Test_Word" Association="Self.FK_Beg_Test_Word">
+            <End Role="Beg_Word" EntitySet="Beg_Word" />
+            <End Role="Beg_WordTest" EntitySet="Beg_WordTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beg_WordFiles_Beg_Word" Association="Self.FK_Beg_WordFiles_Beg_Word">
+            <End Role="Beg_Word" EntitySet="Beg_Word" />
+            <End Role="Beg_WordFiles" EntitySet="Beg_WordFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beg_WordResult_Beg_WordTest" Association="Self.FK_Beg_WordResult_Beg_WordTest">
+            <End Role="Beg_WordTest" EntitySet="Beg_WordTest" />
+            <End Role="Beg_WordResult" EntitySet="Beg_WordResult" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beg_WordTranslate_Beg_Word" Association="Self.FK_Beg_WordTranslate_Beg_Word">
+            <End Role="Beg_Word" EntitySet="Beg_Word" />
+            <End Role="Beg_WordTranslate" EntitySet="Beg_WordTranslate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beg_WordUserTest_BegWord" Association="Self.FK_Beg_WordUserTest_BegWord">
+            <End Role="Beg_Word" EntitySet="Beg_Word" />
+            <End Role="Beg_WordUserTest" EntitySet="Beg_WordUserTest" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbExtranetNewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Beg_Word">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Word" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Explain" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SortOrder" Type="Int32" />
+          <NavigationProperty Name="Beg_WordFiles" Relationship="Self.FK_Beg_WordFiles_Beg_Word" FromRole="Beg_Word" ToRole="Beg_WordFiles" />
+          <NavigationProperty Name="Beg_WordTranslate" Relationship="Self.FK_Beg_WordTranslate_Beg_Word" FromRole="Beg_Word" ToRole="Beg_WordTranslate" />
+          <NavigationProperty Name="Beg_WordTest" Relationship="dbExtranetNewModel.FK_Beg_Test_Word" FromRole="Beg_Word" ToRole="Beg_WordTest" />
+          <NavigationProperty Name="Beg_WordUserTest" Relationship="dbExtranetNewModel.FK_Beg_WordUserTest_BegWord" FromRole="Beg_Word" ToRole="Beg_WordUserTest" />
+        </EntityType>
+        <EntityType Name="Beg_WordFiles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BegWordId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Play" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Beg_Word" Relationship="Self.FK_Beg_WordFiles_Beg_Word" FromRole="Beg_WordFiles" ToRole="Beg_Word" />
+        </EntityType>
+        <EntityType Name="Beg_WordTranslate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BegWordId" Type="Int32" Nullable="false" />
+          <Property Name="Kannada" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="KannadaDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Hindi" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="HindiDesc" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Beg_Word" Relationship="Self.FK_Beg_WordTranslate_Beg_Word" FromRole="Beg_WordTranslate" ToRole="Beg_Word" />
+        </EntityType>
+        <EntityType Name="Beg_WordCourse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Lesson" Type="Int32" />
+          <Property Name="Topics" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_Beg_WordFiles_Beg_Word">
+          <End Role="Beg_Word" Type="Self.Beg_Word" Multiplicity="1" />
+          <End Role="Beg_WordFiles" Type="Self.Beg_WordFiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_Word">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_WordFiles">
+              <PropertyRef Name="BegWordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beg_WordTranslate_Beg_Word">
+          <End Role="Beg_Word" Type="Self.Beg_Word" Multiplicity="1" />
+          <End Role="Beg_WordTranslate" Type="Self.Beg_WordTranslate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_Word">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_WordTranslate">
+              <PropertyRef Name="BegWordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbExtranetEntitiesWord" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Beg_Word" EntityType="Self.Beg_Word" />
+          <EntitySet Name="Beg_WordFiles" EntityType="Self.Beg_WordFiles" />
+          <EntitySet Name="Beg_WordTranslate" EntityType="Self.Beg_WordTranslate" />
+          <EntitySet Name="Beg_WordCourse" EntityType="Self.Beg_WordCourse" />
+          <AssociationSet Name="FK_Beg_WordFiles_Beg_Word" Association="Self.FK_Beg_WordFiles_Beg_Word">
+            <End Role="Beg_Word" EntitySet="Beg_Word" />
+            <End Role="Beg_WordFiles" EntitySet="Beg_WordFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beg_WordTranslate_Beg_Word" Association="Self.FK_Beg_WordTranslate_Beg_Word">
+            <End Role="Beg_Word" EntitySet="Beg_Word" />
+            <End Role="Beg_WordTranslate" EntitySet="Beg_WordTranslate" />
+          </AssociationSet>
+          <EntitySet Name="Beg_WordResult" EntityType="dbExtranetNewModel.Beg_WordResult" />
+          <EntitySet Name="Beg_WordTest" EntityType="dbExtranetNewModel.Beg_WordTest" />
+          <EntitySet Name="Beg_WordUserTest" EntityType="dbExtranetNewModel.Beg_WordUserTest" />
+          <AssociationSet Name="FK_Beg_Test_Word" Association="dbExtranetNewModel.FK_Beg_Test_Word">
+            <End Role="Beg_Word" EntitySet="Beg_Word" />
+            <End Role="Beg_WordTest" EntitySet="Beg_WordTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beg_WordUserTest_BegWord" Association="dbExtranetNewModel.FK_Beg_WordUserTest_BegWord">
+            <End Role="Beg_Word" EntitySet="Beg_Word" />
+            <End Role="Beg_WordUserTest" EntitySet="Beg_WordUserTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beg_WordResult_Beg_WordTest" Association="dbExtranetNewModel.FK_Beg_WordResult_Beg_WordTest">
+            <End Role="Beg_WordTest" EntitySet="Beg_WordTest" />
+            <End Role="Beg_WordResult" EntitySet="Beg_WordResult" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Beg_WordResult">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Result" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="BegWordTestId" Type="Int32" />
+          <Property Name="Correct" Type="Int32" />
+          <Property Name="wrong" Type="Int32" />
+          <NavigationProperty Name="Beg_WordTest" Relationship="dbExtranetNewModel.FK_Beg_WordResult_Beg_WordTest" FromRole="Beg_WordResult" ToRole="Beg_WordTest" />
+        </EntityType>
+        <EntityType Name="Beg_WordTest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BegWordId" Type="Int32" />
+          <Property Name="BegCourseId" Type="Int32" />
+          <Property Name="Day" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="QuestionNumber" Type="Int32" />
+          <Property Name="Question" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Beg_Word" Relationship="dbExtranetNewModel.FK_Beg_Test_Word" FromRole="Beg_WordTest" ToRole="Beg_Word" />
+          <NavigationProperty Name="Beg_WordResult" Relationship="dbExtranetNewModel.FK_Beg_WordResult_Beg_WordTest" FromRole="Beg_WordTest" ToRole="Beg_WordResult" />
+        </EntityType>
+        <EntityType Name="Beg_WordUserTest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BegWordId" Type="Int32" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BegWordTestId" Type="Int32" />
+          <Property Name="Day" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="QuestionNumber" Type="Int32" />
+          <Property Name="Question" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Beg_Word" Relationship="dbExtranetNewModel.FK_Beg_WordUserTest_BegWord" FromRole="Beg_WordUserTest" ToRole="Beg_Word" />
+        </EntityType>
+        <Association Name="FK_Beg_Test_Word">
+          <End Type="dbExtranetNewModel.Beg_Word" Role="Beg_Word" Multiplicity="0..1" />
+          <End Type="dbExtranetNewModel.Beg_WordTest" Role="Beg_WordTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_Word">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_WordTest">
+              <PropertyRef Name="BegWordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beg_WordUserTest_BegWord">
+          <End Type="dbExtranetNewModel.Beg_Word" Role="Beg_Word" Multiplicity="0..1" />
+          <End Type="dbExtranetNewModel.Beg_WordUserTest" Role="Beg_WordUserTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_Word">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_WordUserTest">
+              <PropertyRef Name="BegWordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beg_WordResult_Beg_WordTest">
+          <End Type="dbExtranetNewModel.Beg_WordTest" Role="Beg_WordTest" Multiplicity="0..1" />
+          <End Type="dbExtranetNewModel.Beg_WordResult" Role="Beg_WordResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_WordTest">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_WordResult">
+              <PropertyRef Name="BegWordTestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbExtranetNewModelStoreContainer" CdmEntityContainer="dbExtranetEntitiesWord">
+          <EntitySetMapping Name="Beg_Word">
+            <EntityTypeMapping TypeName="dbExtranetNewModel.Beg_Word">
+              <MappingFragment StoreEntitySet="Beg_Word">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Word" ColumnName="Word" />
+                <ScalarProperty Name="Explain" ColumnName="Explain" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Beg_WordFiles">
+            <EntityTypeMapping TypeName="dbExtranetNewModel.Beg_WordFiles">
+              <MappingFragment StoreEntitySet="Beg_WordFiles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BegWordId" ColumnName="BegWordId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="Play" ColumnName="Play" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Beg_WordTranslate">
+            <EntityTypeMapping TypeName="dbExtranetNewModel.Beg_WordTranslate">
+              <MappingFragment StoreEntitySet="Beg_WordTranslate">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BegWordId" ColumnName="BegWordId" />
+                <ScalarProperty Name="Kannada" ColumnName="Kannada" />
+                <ScalarProperty Name="KannadaDesc" ColumnName="KannadaDesc" />
+                <ScalarProperty Name="Hindi" ColumnName="Hindi" />
+                <ScalarProperty Name="HindiDesc" ColumnName="HindiDesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Beg_WordCourse">
+            <EntityTypeMapping TypeName="dbExtranetNewModel.Beg_WordCourse">
+              <MappingFragment StoreEntitySet="Beg_WordCourse">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Lesson" ColumnName="Lesson" />
+                <ScalarProperty Name="Topics" ColumnName="Topics" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Beg_WordResult">
+            <EntityTypeMapping TypeName="dbExtranetNewModel.Beg_WordResult">
+              <MappingFragment StoreEntitySet="Beg_WordResult">
+                <ScalarProperty Name="wrong" ColumnName="wrong" />
+                <ScalarProperty Name="Correct" ColumnName="Correct" />
+                <ScalarProperty Name="BegWordTestId" ColumnName="BegWordTestId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Beg_WordTest">
+            <EntityTypeMapping TypeName="dbExtranetNewModel.Beg_WordTest">
+              <MappingFragment StoreEntitySet="Beg_WordTest">
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="QuestionNumber" ColumnName="QuestionNumber" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="BegCourseId" ColumnName="BegCourseId" />
+                <ScalarProperty Name="BegWordId" ColumnName="BegWordId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Beg_WordUserTest">
+            <EntityTypeMapping TypeName="dbExtranetNewModel.Beg_WordUserTest">
+              <MappingFragment StoreEntitySet="Beg_WordUserTest">
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="QuestionNumber" ColumnName="QuestionNumber" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="BegWordTestId" ColumnName="BegWordTestId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="BegWordId" ColumnName="BegWordId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

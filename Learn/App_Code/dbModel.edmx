@@ -25,17 +25,6 @@
           <Property Name="ContentType" Type="varchar" MaxLength="50" />
           <Property Name="Play" Type="varbinary(max)" />
         </EntityType>
-        <EntityType Name="beg_Ind_1">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FileName" Type="varchar" MaxLength="50" />
-          <Property Name="Description" Type="varchar" MaxLength="50" />
-          <Property Name="Translate" Type="varchar" MaxLength="50" />
-          <Property Name="ContentType" Type="varchar" MaxLength="50" />
-          <Property Name="Data" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="Beg_Result">
           <Key>
             <PropertyRef Name="Id" />
@@ -54,20 +43,11 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BegAlphabetId" Type="int" />
-          <Property Name="Course" Type="nvarchar" MaxLength="50" />
+          <Property Name="Course" Type="int" />
           <Property Name="Day" Type="nchar" MaxLength="10" />
           <Property Name="QuestionNumber" Type="int" />
           <Property Name="Question" Type="varchar" MaxLength="50" />
           <Property Name="Answer" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="beg_Tra_1">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BegIndId" Type="int" Nullable="false" />
-          <Property Name="Kannada" Type="nvarchar" MaxLength="20" />
-          <Property Name="Hindi" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Beg_Translate">
           <Key>
@@ -77,6 +57,19 @@
           <Property Name="begAlphabetId" Type="int" Nullable="false" />
           <Property Name="Kannada" Type="nvarchar" MaxLength="8" />
           <Property Name="Hindi" Type="nvarchar" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="Beg_UserTest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BegAlphabetId" Type="int" />
+          <Property Name="Username" Type="nvarchar(max)" />
+          <Property Name="Course" Type="int" />
+          <Property Name="Day" Type="nchar" MaxLength="10" />
+          <Property Name="QuestionNumber" Type="int" />
+          <Property Name="Question" Type="varchar" MaxLength="50" />
+          <Property Name="Answer" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ButtonNames">
           <Key>
@@ -160,15 +153,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_begInd1">
-          <End Role="beg_Ind_1" Type="Self.beg_Ind_1" Multiplicity="1" />
-          <End Role="beg_Tra_1" Type="Self.beg_Tra_1" Multiplicity="*" />
+        <Association Name="FK_Beg_UserTest_BegAlphabet">
+          <End Role="Beg_Alphabet" Type="Self.Beg_Alphabet" Multiplicity="0..1" />
+          <End Role="Beg_UserTest" Type="Self.Beg_UserTest" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="beg_Ind_1">
-              <PropertyRef Name="id" />
+            <Principal Role="Beg_Alphabet">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="beg_Tra_1">
-              <PropertyRef Name="BegIndId" />
+            <Dependent Role="Beg_UserTest">
+              <PropertyRef Name="BegAlphabetId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -187,11 +180,10 @@
         <EntityContainer Name="dbExtranetModelStoreContainer">
           <EntitySet Name="Beg_Alphabet" EntityType="Self.Beg_Alphabet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Beg_Files" EntityType="Self.Beg_Files" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="beg_Ind_1" EntityType="Self.beg_Ind_1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Beg_Result" EntityType="Self.Beg_Result" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Beg_Test" EntityType="Self.Beg_Test" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="beg_Tra_1" EntityType="Self.beg_Tra_1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Beg_Translate" EntityType="Self.Beg_Translate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Beg_UserTest" EntityType="Self.Beg_UserTest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ButtonNames" EntityType="Self.ButtonNames" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseMsts" EntityType="Self.CourseMsts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ForgotPassRequests" EntityType="Self.ForgotPassRequests" Schema="dbo" store:Type="Tables" />
@@ -209,9 +201,9 @@
             <End Role="Beg_Alphabet" EntitySet="Beg_Alphabet" />
             <End Role="Beg_Translate" EntitySet="Beg_Translate" />
           </AssociationSet>
-          <AssociationSet Name="FK_begInd1" Association="Self.FK_begInd1">
-            <End Role="beg_Ind_1" EntitySet="beg_Ind_1" />
-            <End Role="beg_Tra_1" EntitySet="beg_Tra_1" />
+          <AssociationSet Name="FK_Beg_UserTest_BegAlphabet" Association="Self.FK_Beg_UserTest_BegAlphabet">
+            <End Role="Beg_Alphabet" EntitySet="Beg_Alphabet" />
+            <End Role="Beg_UserTest" EntitySet="Beg_UserTest" />
           </AssociationSet>
           <AssociationSet Name="FK_ForgotPassRequests_User" Association="Self.FK_ForgotPassRequests_User">
             <End Role="Users" EntitySet="Users" />
@@ -225,10 +217,7 @@
         <EntityContainer Name="dbExtranetEntities" annotation:LazyLoadingEnabled="true" >
           <EntitySet Name="Beg_Alphabet" EntityType="dbExtranetModel.Beg_Alphabet" />
           <EntitySet Name="Beg_Files" EntityType="dbExtranetModel.Beg_Files" />
-          <EntitySet Name="beg_Ind_1" EntityType="dbExtranetModel.beg_Ind_1" />
           <EntitySet Name="Beg_Result" EntityType="dbExtranetModel.Beg_Result" />
-          <EntitySet Name="Beg_Test" EntityType="dbExtranetModel.Beg_Test" />
-          <EntitySet Name="beg_Tra_1" EntityType="dbExtranetModel.beg_Tra_1" />
           <EntitySet Name="Beg_Translate" EntityType="dbExtranetModel.Beg_Translate" />
           <EntitySet Name="ButtonNames" EntityType="dbExtranetModel.ButtonName" />
           <EntitySet Name="CourseMsts" EntityType="dbExtranetModel.CourseMst" />
@@ -238,22 +227,24 @@
             <End Role="Beg_Alphabet" EntitySet="Beg_Alphabet" />
             <End Role="Beg_Files" EntitySet="Beg_Files" />
           </AssociationSet>
-          <AssociationSet Name="FK_Beg_Test_BegAlphabet" Association="dbExtranetModel.FK_Beg_Test_BegAlphabet">
-            <End Role="Beg_Alphabet" EntitySet="Beg_Alphabet" />
-            <End Role="Beg_Test" EntitySet="Beg_Test" />
-          </AssociationSet>
           <AssociationSet Name="FK_Beg_Translate_Beg_Aplhabet" Association="dbExtranetModel.FK_Beg_Translate_Beg_Aplhabet">
             <End Role="Beg_Alphabet" EntitySet="Beg_Alphabet" />
             <End Role="Beg_Translate" EntitySet="Beg_Translate" />
-          </AssociationSet>
-          <AssociationSet Name="FK_begInd1" Association="dbExtranetModel.FK_begInd1">
-            <End Role="beg_Ind_1" EntitySet="beg_Ind_1" />
-            <End Role="beg_Tra_1" EntitySet="beg_Tra_1" />
           </AssociationSet>
           <EntitySet Name="Users" EntityType="dbExtranetModel.User" />
           <AssociationSet Name="FK_ForgotPassRequests_User" Association="dbExtranetModel.FK_ForgotPassRequests_User">
             <End Role="User" EntitySet="Users" />
             <End Role="ForgotPassRequest" EntitySet="ForgotPassRequests" />
+          </AssociationSet>
+          <EntitySet Name="Beg_Test" EntityType="dbExtranetModel.Beg_Test" />
+          <EntitySet Name="Beg_UserTest" EntityType="dbExtranetModel.Beg_UserTest" />
+          <AssociationSet Name="FK_Beg_Test_BegAlphabet" Association="dbExtranetModel.FK_Beg_Test_BegAlphabet">
+            <End Role="Beg_Alphabet" EntitySet="Beg_Alphabet" />
+            <End Role="Beg_Test" EntitySet="Beg_Test" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beg_UserTest_BegAlphabet" Association="dbExtranetModel.FK_Beg_UserTest_BegAlphabet">
+            <End Role="Beg_Alphabet" EntitySet="Beg_Alphabet" />
+            <End Role="Beg_UserTest" EntitySet="Beg_UserTest" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Beg_Alphabet">
@@ -266,8 +257,9 @@
           <Property Name="Explain" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="SortOrder" Type="Int32" />
           <NavigationProperty Name="Beg_Files" Relationship="dbExtranetModel.FK_Beg_Files_Beg_Alphabet" FromRole="Beg_Alphabet" ToRole="Beg_Files" />
-          <NavigationProperty Name="Beg_Test" Relationship="dbExtranetModel.FK_Beg_Test_BegAlphabet" FromRole="Beg_Alphabet" ToRole="Beg_Test" />
           <NavigationProperty Name="Beg_Translate" Relationship="dbExtranetModel.FK_Beg_Translate_Beg_Aplhabet" FromRole="Beg_Alphabet" ToRole="Beg_Translate" />
+          <NavigationProperty Name="Beg_Test" Relationship="dbExtranetModel.FK_Beg_Test_BegAlphabet" FromRole="Beg_Alphabet" ToRole="Beg_Test" />
+          <NavigationProperty Name="Beg_UserTest" Relationship="dbExtranetModel.FK_Beg_UserTest_BegAlphabet" FromRole="Beg_Alphabet" ToRole="Beg_UserTest" />
         </EntityType>
         <EntityType Name="Beg_Files">
           <Key>
@@ -280,18 +272,6 @@
           <Property Name="Play" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Beg_Alphabet" Relationship="dbExtranetModel.FK_Beg_Files_Beg_Alphabet" FromRole="Beg_Files" ToRole="Beg_Alphabet" />
         </EntityType>
-        <EntityType Name="beg_Ind_1">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Translate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Data" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="beg_Tra_1" Relationship="dbExtranetModel.FK_begInd1" FromRole="beg_Ind_1" ToRole="beg_Tra_1" />
-        </EntityType>
         <EntityType Name="Beg_Result">
           <Key>
             <PropertyRef Name="Id" />
@@ -303,29 +283,6 @@
           <Property Name="BegTestId" Type="Int32" />
           <Property Name="Correct" Type="Int32" />
           <Property Name="wrong" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Beg_Test">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BegAlphabetId" Type="Int32" />
-          <Property Name="Course" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Day" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="QuestionNumber" Type="Int32" />
-          <Property Name="Question" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Beg_Alphabet" Relationship="dbExtranetModel.FK_Beg_Test_BegAlphabet" FromRole="Beg_Test" ToRole="Beg_Alphabet" />
-        </EntityType>
-        <EntityType Name="beg_Tra_1">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BegIndId" Type="Int32" Nullable="false" />
-          <Property Name="Kannada" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Hindi" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="beg_Ind_1" Relationship="dbExtranetModel.FK_begInd1" FromRole="beg_Tra_1" ToRole="beg_Ind_1" />
         </EntityType>
         <EntityType Name="Beg_Translate">
           <Key>
@@ -384,18 +341,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Beg_Test_BegAlphabet">
-          <End Type="dbExtranetModel.Beg_Alphabet" Role="Beg_Alphabet" Multiplicity="0..1" />
-          <End Type="dbExtranetModel.Beg_Test" Role="Beg_Test" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Beg_Alphabet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Beg_Test">
-              <PropertyRef Name="BegAlphabetId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Beg_Translate_Beg_Aplhabet">
           <End Type="dbExtranetModel.Beg_Alphabet" Role="Beg_Alphabet" Multiplicity="1" />
           <End Type="dbExtranetModel.Beg_Translate" Role="Beg_Translate" Multiplicity="*" />
@@ -405,18 +350,6 @@
             </Principal>
             <Dependent Role="Beg_Translate">
               <PropertyRef Name="begAlphabetId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_begInd1">
-          <End Type="dbExtranetModel.beg_Ind_1" Role="beg_Ind_1" Multiplicity="1" />
-          <End Type="dbExtranetModel.beg_Tra_1" Role="beg_Tra_1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="beg_Ind_1">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="beg_Tra_1">
-              <PropertyRef Name="BegIndId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -442,6 +375,57 @@
             </Principal>
             <Dependent Role="ForgotPassRequest">
               <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Beg_Test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BegAlphabetId" Type="Int32" />
+          <Property Name="Course" Type="Int32" />
+          <Property Name="Day" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="QuestionNumber" Type="Int32" />
+          <Property Name="Question" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Beg_Alphabet" Relationship="dbExtranetModel.FK_Beg_Test_BegAlphabet" FromRole="Beg_Test" ToRole="Beg_Alphabet" />
+        </EntityType>
+        <EntityType Name="Beg_UserTest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BegAlphabetId" Type="Int32" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Course" Type="Int32" />
+          <Property Name="Day" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="QuestionNumber" Type="Int32" />
+          <Property Name="Question" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Beg_Alphabet" Relationship="dbExtranetModel.FK_Beg_UserTest_BegAlphabet" FromRole="Beg_UserTest" ToRole="Beg_Alphabet" />
+        </EntityType>
+        <Association Name="FK_Beg_Test_BegAlphabet">
+          <End Type="dbExtranetModel.Beg_Alphabet" Role="Beg_Alphabet" Multiplicity="0..1" />
+          <End Type="dbExtranetModel.Beg_Test" Role="Beg_Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_Alphabet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_Test">
+              <PropertyRef Name="BegAlphabetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beg_UserTest_BegAlphabet">
+          <End Type="dbExtranetModel.Beg_Alphabet" Role="Beg_Alphabet" Multiplicity="0..1" />
+          <End Type="dbExtranetModel.Beg_UserTest" Role="Beg_UserTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beg_Alphabet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Beg_UserTest">
+              <PropertyRef Name="BegAlphabetId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -473,18 +457,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="beg_Ind_1">
-            <EntityTypeMapping TypeName="dbExtranetModel.beg_Ind_1">
-              <MappingFragment StoreEntitySet="beg_Ind_1">
-                <ScalarProperty Name="Data" ColumnName="Data" />
-                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
-                <ScalarProperty Name="Translate" ColumnName="Translate" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Beg_Result">
             <EntityTypeMapping TypeName="dbExtranetModel.Beg_Result">
               <MappingFragment StoreEntitySet="Beg_Result">
@@ -495,29 +467,6 @@
                 <ScalarProperty Name="Result" ColumnName="Result" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Beg_Test">
-            <EntityTypeMapping TypeName="dbExtranetModel.Beg_Test">
-              <MappingFragment StoreEntitySet="Beg_Test">
-                <ScalarProperty Name="Answer" ColumnName="Answer" />
-                <ScalarProperty Name="Question" ColumnName="Question" />
-                <ScalarProperty Name="QuestionNumber" ColumnName="QuestionNumber" />
-                <ScalarProperty Name="Day" ColumnName="Day" />
-                <ScalarProperty Name="Course" ColumnName="Course" />
-                <ScalarProperty Name="BegAlphabetId" ColumnName="BegAlphabetId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="beg_Tra_1">
-            <EntityTypeMapping TypeName="dbExtranetModel.beg_Tra_1">
-              <MappingFragment StoreEntitySet="beg_Tra_1">
-                <ScalarProperty Name="Hindi" ColumnName="Hindi" />
-                <ScalarProperty Name="Kannada" ColumnName="Kannada" />
-                <ScalarProperty Name="BegIndId" ColumnName="BegIndId" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -579,6 +528,33 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Uid" ColumnName="Uid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Beg_Test">
+            <EntityTypeMapping TypeName="dbExtranetModel.Beg_Test">
+              <MappingFragment StoreEntitySet="Beg_Test">
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="QuestionNumber" ColumnName="QuestionNumber" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="BegAlphabetId" ColumnName="BegAlphabetId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Beg_UserTest">
+            <EntityTypeMapping TypeName="dbExtranetModel.Beg_UserTest">
+              <MappingFragment StoreEntitySet="Beg_UserTest">
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="QuestionNumber" ColumnName="QuestionNumber" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="BegAlphabetId" ColumnName="BegAlphabetId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

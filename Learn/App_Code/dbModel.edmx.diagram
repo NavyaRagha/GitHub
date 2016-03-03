@@ -5,23 +5,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="ae1561a5315c4a92b6f767b7bc7f0b1e" Name="Diagram1" >
-        <EntityTypeShape EntityType="dbExtranetModel.Beg_Alphabet" Width="1.5" PointX="0.75" PointY="4" />
-        <EntityTypeShape EntityType="dbExtranetModel.Beg_Files" Width="1.5" PointX="3" PointY="1.25" />
-        <EntityTypeShape EntityType="dbExtranetModel.beg_Ind_1" Width="1.5" PointX="5.75" PointY="5" />
-        <EntityTypeShape EntityType="dbExtranetModel.Beg_Result" Width="1.5" PointX="5.75" PointY="8.75" />
-        <EntityTypeShape EntityType="dbExtranetModel.Beg_Test" Width="1.5" PointX="3" PointY="6.875" />
-        <EntityTypeShape EntityType="dbExtranetModel.beg_Tra_1" Width="1.5" PointX="8" PointY="5.125" />
-        <EntityTypeShape EntityType="dbExtranetModel.Beg_Translate" Width="1.5" PointX="3" PointY="4.125" />
-        <EntityTypeShape EntityType="dbExtranetModel.ButtonName" Width="1.5" PointX="7.75" PointY="8.75" />
-        <EntityTypeShape EntityType="dbExtranetModel.CourseMst" Width="1.5" PointX="9.75" PointY="8.75" />
-        <EntityTypeShape EntityType="dbExtranetModel.ForgotPassRequest" Width="1.5" PointX="8" PointY="1.375" />
-        <EntityTypeShape EntityType="dbExtranetModel.tblFile" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="dbExtranetModel.Beg_Alphabet" Width="1.5" PointX="4.75" PointY="3.375" />
+        <EntityTypeShape EntityType="dbExtranetModel.Beg_Files" Width="1.5" PointX="4.625" PointY="0.625" />
+        <EntityTypeShape EntityType="dbExtranetModel.Beg_Result" Width="1.5" PointX="9.75" PointY="3.25" />
+        <EntityTypeShape EntityType="dbExtranetModel.Beg_Translate" Width="1.5" PointX="4.625" PointY="6.625" />
+        <EntityTypeShape EntityType="dbExtranetModel.ButtonName" Width="1.5" PointX="12" PointY="4.75" />
+        <EntityTypeShape EntityType="dbExtranetModel.CourseMst" Width="1.5" PointX="11.75" PointY="2.5" />
+        <EntityTypeShape EntityType="dbExtranetModel.ForgotPassRequest" Width="1.5" PointX="2.25" PointY="0.625" />
+        <EntityTypeShape EntityType="dbExtranetModel.tblFile" Width="1.5" PointX="9.75" PointY="1" />
         <AssociationConnector Association="dbExtranetModel.FK_Beg_Files_Beg_Alphabet" />
-        <AssociationConnector Association="dbExtranetModel.FK_Beg_Test_BegAlphabet" />
         <AssociationConnector Association="dbExtranetModel.FK_Beg_Translate_Beg_Aplhabet" />
-        <AssociationConnector Association="dbExtranetModel.FK_begInd1" />
-        <EntityTypeShape EntityType="dbExtranetModel.User" Width="1.5" PointX="5.75" PointY="1" />
+        <EntityTypeShape EntityType="dbExtranetModel.User" Width="1.5" PointX="0.5" PointY="0.5" />
         <AssociationConnector Association="dbExtranetModel.FK_ForgotPassRequests_User" />
+        <EntityTypeShape EntityType="dbExtranetModel.Beg_Test" Width="1.5" PointX="7" PointY="3.375" />
+        <EntityTypeShape EntityType="dbExtranetModel.Beg_UserTest" Width="1.5" PointX="2.5" PointY="3.5" />
+        <AssociationConnector Association="dbExtranetModel.FK_Beg_Test_BegAlphabet" />
+        <AssociationConnector Association="dbExtranetModel.FK_Beg_UserTest_BegAlphabet" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
