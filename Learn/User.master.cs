@@ -11,4 +11,9 @@ public partial class User : System.Web.UI.MasterPage
     {
 
     }
+    protected void btnAdminLogout_Click(object sender, EventArgs e)
+    {
+        //Session["USERNAME"] = null;
+        //Response.Redirect("~/home");
+    }
 }

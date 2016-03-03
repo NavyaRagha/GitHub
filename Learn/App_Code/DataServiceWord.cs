@@ -41,7 +41,15 @@ public class DataServiceWord
         public string Hindi { get; set; }
         public byte[] Play { get; set; }
     }
-
+    public static Int32 NewUser(string username)
+    {
+        Int32 result = 0;
+        using (dbExtranetEntitiesWord db = new dbExtranetEntitiesWord())
+        {
+            result = db.Beg_WordResult.Where(x => x.Username == username).ToList().Count;
+        }
+        return result;
+    }
     public static int? GetTopicsPerChapter(Int32 lessoncompleted)
     {
         int? result = 0;

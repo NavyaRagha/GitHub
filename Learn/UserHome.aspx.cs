@@ -28,6 +28,7 @@ public partial class UserHome : System.Web.UI.Page
     //}
     protected void Page_Load(object sender, EventArgs e)
     {
+        Response.Redirect("~/Word/Main.aspx");
         if (!IsPostBack)
         {
             if (Session["ut"].ToString() == "A")

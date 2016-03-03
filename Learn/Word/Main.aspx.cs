@@ -86,7 +86,7 @@ public partial class Word_Main : System.Web.UI.Page
         ViewState["questnum"] = 0;
         using (dbExtranetEntitiesWord db = new dbExtranetEntitiesWord())
         {
-            var newuser = DataService.NewUser(hdnusername.Value);
+            var newuser = DataServiceWord.NewUser(hdnusername.Value);
             if (newuser == 0)
             {
                 getChaptersPerDay = DataServiceWord.GetTopicsPerChapter(lessonCompleted + 1);
@@ -104,7 +104,7 @@ public partial class Word_Main : System.Web.UI.Page
                 //getChaptersPerDay
 
             }
-            List<DataService.LearningQuiz> quest = DataServiceWord.LoadQuiz(Convert.ToInt32(ViewState["questnum"]));
+            List<DataServiceWord.LearningQuiz> quest = DataServiceWord.LoadQuiz(Convert.ToInt32(ViewState["questnum"]));
             lblQuest.Text = quest[0].QuestionNum + "   " + quest[0].Question;
             hdnAn.Value = Convert.ToString(quest[0].An);
             hdnMainQuestid.Value = Convert.ToString(quest[0].BegPrId);
